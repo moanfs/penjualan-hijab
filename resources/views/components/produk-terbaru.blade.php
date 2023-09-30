@@ -1,5 +1,5 @@
-<div class="container bg-white flex">
-    <div class="shadow-lg d-flex p-2 w-[80%] mx-auto rounded-lg mt-[8rem]">
-        <h2 class="">brand</h2>
+<div class="container bg-white mx-auto">
+    <div class="w-[80%] mx-auto">
+        <h2 class="text-center">brand</h2>
     </div>
 </div>
