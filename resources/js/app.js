@@ -7,11 +7,3 @@ window.Alpine = Alpine;
 Alpine.plugin(focus);
 
 Alpine.start();
-
-function toggleMenu() {
-    const navMenu = document.querySelector('.nav-menu');
-
-    navMenu.classList.toggle('hidden');
-}
-
-window.toggleMenu = toggleMenu;
