@@ -26,39 +26,39 @@
 
         <div class="flex items-center">
             @if (Route::has('login'))
-                @auth
-                    <div class="hidden md:block profile relative" x-data="{ dropdownOpen: false }">
-                        <div class="flex items-center gap-5">
-                            <button @click="dropdownOpen = !dropdownOpen">
-                                <img class="h-8 w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}">
-                            </button>
-                            <!-- <i onclick="onToggleMenu(this)" name"menu" class="fa-solid fa-bars text-2xl cursor-pointer"></i> -->
-                        </div>
-                        <div class="lg:absolute shadow-md bg-white rounded-md p-2 right-0" :class="{ 'hidden': !dropdownOpen, 'flex flex-col': dropdownOpen }">
-                            <ul class="space-y-2 lg:w-40">
-                                <li>
-                                    <x-dropdown-link href="{{ route('profile.show') }}">
-                                        <i class="fa-regular fa-user mr-3"></i> {{ __('Profile') }}
-                                    </x-dropdown-link>
-                                </li>
-                                <div class="border-t border-gray-200"></div>
-                                <li>
-                                    <form method="POST" action="{{ route('logout') }}" x-data>
-                                        @csrf
-                                        <x-dropdown-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
-                                            <i class="fa-solid fa-arrow-right-from-bracket mr-3"></i>{{ __('Log Out') }}
-                                        </x-dropdown-link>
-                                    </form>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                @else
-                    <div class="hidden md:flex auth items-center gap-5">
-                        <a class="" href="{{ route('login') }}">Masuk</a>
-                        <a class="" href="{{ route('register') }}">Daftar</a>
-                    </div>
-                @endauth
+            @auth
+            <div class="hidden md:block profile relative" x-data="{ dropdownOpen: false }">
+                <div class="flex items-center gap-5">
+                    <button @click="dropdownOpen = !dropdownOpen">
+                        <img class="h-8 w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}">
+                    </button>
+                    <!-- <i onclick="onToggleMenu(this)" name"menu" class="fa-solid fa-bars text-2xl cursor-pointer"></i> -->
+                </div>
+                <div class="lg:absolute shadow-md bg-white rounded-md p-2 right-0" :class="{ 'hidden': !dropdownOpen, 'flex flex-col': dropdownOpen }">
+                    <ul class="space-y-2 lg:w-40">
+                        <li>
+                            <x-dropdown-link href="{{ route('profile.show') }}">
+                                <i class="fa-regular fa-user mr-3"></i> {{ __('Profile') }}
+                            </x-dropdown-link>
+                        </li>
+                        <div class="border-t border-gray-200"></div>
+                        <li>
+                            <form method="POST" action="{{ route('logout') }}" x-data>
+                                @csrf
+                                <x-dropdown-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
+                                    <i class="fa-solid fa-arrow-right-from-bracket mr-3"></i>{{ __('Log Out') }}
+                                </x-dropdown-link>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            @else
+            <div class="hidden md:flex auth items-center gap-5">
+                <a class="" href="{{ route('login') }}">Masuk</a>
+                <a class="" href="{{ route('register') }}">Daftar</a>
+            </div>
+            @endauth
             @endif
             <div class="p-2 block md:hidden">
                 <ion-icon name="menu" class="text-xl" onclick="toggleMenu()"></ion-icon>
