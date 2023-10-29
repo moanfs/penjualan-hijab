@@ -49,6 +49,12 @@ $ php artisan serve
 $ npm run dev
 ```
 
+atau bisa dengan menjalankan satu printah dengan
+
+```
+npm i -g concurrently
+```
+
 ```
 $ conc "php artisan serve" "npm run dev"
 ```
