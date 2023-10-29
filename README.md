@@ -10,6 +10,7 @@ lalu pastikan di laptop sudah ada composer dan npm
 -   [node js](https://nodejs.org/en)
 -   [composer](https://getcomposer.org/download/)
 -   [xampp](https://www.apachefriends.org/download.html)
+-   [git](https://git-scm.com/downloads)
 
 ## Installation
 
