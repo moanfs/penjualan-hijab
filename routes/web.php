@@ -16,11 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-// Route::get('/admin', [, 'index']);
 
-Route::get('/admin', function () {
-    return view('admin/dashboard');
-});
 
 Route::middleware([
     'auth:sanctum',
@@ -30,4 +26,9 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    //admin
+    Route::get('/admin', function () {
+        return view('admin/dashboard');
+    });
 });

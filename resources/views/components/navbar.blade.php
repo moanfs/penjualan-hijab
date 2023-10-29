@@ -56,7 +56,6 @@
         <div class="auth flex items-center gap-5">
             <a class="" href="{{ route('login') }}">Masuk</a>
             <a class="" href="{{ route('register') }}">Daftar</a>
-            <ion-icon name="menu" onclick="ontoggle(this)"></ion-icon>
         </div>
         @endauth
         @endif
