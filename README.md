@@ -23,6 +23,9 @@ $ git clone https://github.com/moanfs/penjualan-hijab.git
 
 ```
 $ composer install
+```
+
+```
 $ npm install
 ```
 
