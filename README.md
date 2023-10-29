@@ -15,7 +15,7 @@ lalu pastikan di laptop sudah ada :
 ## Installation
 
 ```
-$ git clone https://github.com/moanfs/penjualan-hijab.git
+git clone https://github.com/moanfs/penjualan-hijab.git
 ```
 
 ## usege
@@ -23,34 +23,34 @@ $ git clone https://github.com/moanfs/penjualan-hijab.git
 1. install
 
 ```
-$ composer install
+composer install
 ```
 
 ```
-$ npm install
+npm install
 ```
 
 2. setelah rename file dengan nama .evn.example menjasi .env
 3. setelah itu generate key dengan copy dibawah
 
 ```
-$ php artisan key:generate
+php artisan key:generate
 ```
 
 4. lanjut dengan migrasi database
 
 ```
-$ php artisan migrate
+php artisan migrate
 ```
 
 5. lanjut dengan menjalankan project dengan
 
 ```
-$ php artisan serve
+php artisan serve
 ```
 
 ```
-$ npm run dev
+npm run dev
 ```
 
 atau bisa dengan menjalankan satu printah dengan
@@ -60,5 +60,5 @@ npm i -g concurrently
 ```
 
 ```
-$ conc "php artisan serve" "npm run dev"
+conc "php artisan serve" "npm run dev"
 ```
