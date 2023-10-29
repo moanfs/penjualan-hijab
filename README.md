@@ -5,7 +5,7 @@ aplikasi ini menggunkan framework laravel, dengan menggunkan css tailwind, mysql
 -   [laravel](https://laravel.com/docs/routing)
 -   [tailwind](https://laravel.com/docs/container)
 
-lalu pastikan di laptop sudah ada composer dan npm
+lalu pastikan di laptop sudah ada :
 
 -   [node js](https://nodejs.org/en)
 -   [composer](https://getcomposer.org/download/)
