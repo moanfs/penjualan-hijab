@@ -55,6 +55,6 @@
         </a>
     </div>
     <div class="flex justify-end">
-        <a href="#" class="button hover:text-blue-700">Lainnya..</a>
+        <a href="/populer" class="button hover:text-blue-700">Lainnya..</a>
     </div>
 </div>

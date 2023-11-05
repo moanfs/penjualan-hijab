@@ -19,6 +19,9 @@ Route::get('/', function () {
 Route::get('/terbaru', function () {
     return view('terbaru');
 });
+Route::get('/populer', function () {
+    return view('populer');
+});
 
 Route::resource('posts', PostController::class)->only(['index', 'show']);
 
