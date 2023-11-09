@@ -24,9 +24,11 @@ Route::get('/populer', function () {
     return view('populer');
 });
 
-Route::resource('admin/products', App\Http\Controllers\admin\ProductController::class);
-Route::resource('admin/category', App\Http\Controllers\admin\CategoryController::class);
-Route::resource('admin/brand', App\Http\Controllers\admin\BrandController::class);
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
+    Route::resource('admin/products', App\Http\Controllers\admin\ProductController::class);
+    Route::resource('admin/category', App\Http\Controllers\admin\CategoryController::class);
+    Route::resource('admin/brand', App\Http\Controllers\admin\BrandController::class);
+});
 
 
 
