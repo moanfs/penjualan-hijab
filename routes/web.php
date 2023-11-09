@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+// use App\Http\Controllers\admin\PostController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,7 +24,9 @@ Route::get('/populer', function () {
     return view('populer');
 });
 
-Route::resource('posts', PostController::class)->only(['index', 'show']);
+Route::resource('admin/products', App\Http\Controllers\admin\ProductController::class);
+Route::resource('admin/category', App\Http\Controllers\admin\CategoryController::class);
+Route::resource('admin/brand', App\Http\Controllers\admin\BrandController::class);
 
 
 
@@ -37,7 +40,7 @@ Route::middleware([
     })->name('dashboard');
 
     //admin
-    Route::get('/admin', function () {
+    Route::get('admin', function () {
         return view('admin/dashboard');
     });
 });
