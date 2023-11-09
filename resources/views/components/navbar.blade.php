@@ -8,7 +8,8 @@
     </div>
     <nav class="flex justify-between items-center w-[80%] mx-auto mt-4">
         <div class="logo">
-            <a href="/" class="name">Mutiara Hijab Shop
+            <a href="/" class="name">
+                <img class="w-[8rem]" src="{{ asset('/img/mutiara.png') }}" alt="toko hijab mutiara">
             </a>
         </div>
         <div class="search w-[50%] mx-auto">

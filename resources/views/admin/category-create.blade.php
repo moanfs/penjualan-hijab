@@ -33,18 +33,14 @@
 
             </nav>
             <div class="bg-white rounded p-4">
-                <form action="">
+                <form action="{{ route('category.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <label for="namaproduk" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Kategori</label>
-                    <input type="text" id="namaproduk" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Hijab Mutiara">
-                    <label for="harga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Harga</label>
-                    <input type="text" id="harga" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Hijab Mutiara">
-                    <label for="namaproduk" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Produk</label>
-                    <input type="text" id="namaproduk" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Hijab Mutiara">
-                    <label for="namaproduk" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Produk</label>
-                    <input type="text" id="namaproduk" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Hijab Mutiara">
-
-
+                    <label for="title" class="block my-2 text-sm font-medium text-gray-900 dark:text-white">Title Kategori</label>
+                    <input type="text" name="title" id="title" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 @error('title') is-invalid @enderror placeholder=" Hijab Mutiara">
+                    <label class="block my-2 text-sm font-medium text-gray-900 dark:text-white" for="logo">Logo Kategori</label>
+                    <input name="logo" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="user_avatar_help" id="logo" type="file">
+                    <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">Gambar hanya bisa PNG, JPG, JPEG dengan ukuran maksimal 2MB</div>
+                    <button type="submit" class="text-white bg-blue-700 w-full my-5 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Submit</button>
                 </form>
             </div>
         </div>
