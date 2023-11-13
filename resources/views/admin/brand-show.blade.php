@@ -26,35 +26,25 @@
                             <svg class="w-3 h-3 mx-1 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
                             </svg>
-                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Form Product</span>
+                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Show Brand {{$brand->title}}</span>
                         </div>
                     </li>
                 </ol>
 
             </nav>
-            <div class="bg-white rounded p-4">
-                <form action="{{ route('brand.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div>
-                        <label for="nama" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Brand <span class="text-rose-500">*</span></label>
-                        <input type="text" name="title" id="nama" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Hijab Mutiara">
-                        @error('title')
-                        <span class="text-rose-500">
-                            <p>{{ $message }}</p>
-                        </span>
-                        @enderror
+            <div class="bg-white rounded mx-auto p-4">
+                <p class="mt-2 text-lg text-black">Nama Brand : {{$brand->title}}</p>
+                <div class="flex gap-3">
+                    <label for="logo" class="mt-2 text-lg text-black">Logo Brand : </label>
+                    <img class="h-auto max-w-[10rem] my-3 shadow-md" src="{{ asset('/storage/brands/'.$brand->logo) }}" alt="logo">
+                </div>
+                <form onsubmit="return confirm('Apakah Anda Yakin Ingin Hapus?');" action="{{ route('brand.destroy', $brand->id) }}" method="POST">
+                    <div class="flex justify-end gap-2">
+                        <a href="{{ route('brand.edit', $brand->id) }}" class="bg-blue-500 hover:bg-blue-800 text-white p-2 rounded-lg">EDIT</a>
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="bg-rose-500 hover:bg-rose-800 text-white p-2 rounded-lg">HAPUS</button>
                     </div>
-                    <div>
-                        <label for="logo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Logo <span class="text-rose-500">*</span></label>
-                        <input type="file" id="logo" name="logo" aria-describedby="helper-text-explanation" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
-                        <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">Gambar hanya bisa PNG, JPG, JPEG dengan ukuran maksimal 2MB</div>
-                        @error('logo')
-                        <span class="text-rose-500">
-                            <p>{{ $message }}</p>
-                        </span>
-                        @enderror
-                    </div>
-                    <button type="submit" class="text-white bg-blue-700 w-full my-5 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Submit</button>
                 </form>
             </div>
         </div>

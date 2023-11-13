@@ -11,7 +11,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -33,6 +33,17 @@
     @stack('modals')
 
     @livewireScripts
+
+    <script>
+        $('#hidden_fields').css('display', 'none'); // Hide the text input box in default
+        function myFunction() {
+            if ($('#trigger').prop('checked')) {
+                $('#hidden_fields').css('display', 'block');
+            } else {
+                $('#hidden_fields').css('display', 'none');
+            }
+        }
+    </script>
 </body>
 
 </html>

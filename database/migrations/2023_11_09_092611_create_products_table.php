@@ -13,16 +13,19 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('brand_id');
             $table->string('slug');
             $table->string('nama');
             $table->integer('price');
-            $table->integer('discount');
+            $table->integer('discount')->nullable();
+            $table->boolean('dis_status')->default(0)->nullable();
             $table->integer('amount');
-            $table->string('color');
             $table->string('desc');
-            $table->string('size');
             $table->boolean('status')->default(0);
             $table->timestamps();
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
         });
     }
 
