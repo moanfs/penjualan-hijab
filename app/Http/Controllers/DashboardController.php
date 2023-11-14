@@ -19,6 +19,7 @@ class DashboardController extends Controller
         return view('welcome', [
             'terbaru' => Product::latest()->paginate(5),
             'brands'  => Brand::latest()->paginate(5),
+            'produk'    => Product::get(),
             'images' => $images
         ]);
     }

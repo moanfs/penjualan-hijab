@@ -12,8 +12,12 @@
                         @endif
                         @endforeach
                         <div class="px-4 py-2 capitalize ">
-                            <p class="text-rose-600 line-through font-medium">{{$post->discount}}</p>
-                            <p class="text-gray-600  font-medium">{{$post->price}}</p>
+                            @if ($post->dis_status == 1)
+                            <h1 class="text-rose-500 line-through">RP. {{$post->price}}</h1>
+                            <h1 class="">Rp. {{$post->price - $post->discount}}</h1>
+                            @else
+                            <h1>RP. {{$post->price}}</h1>
+                            @endif
                             <h class="text-xl font-medium text-gray-900 line-clamp-1">{{$post->nama}}</h>
                         </div>
                     </div>

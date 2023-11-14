@@ -2,9 +2,6 @@
     <div class="w-[80%] mx-auto bg-white">
         <div class="grid-cols-2 grid gap-10 py-5">
             <div>
-
-
-
                 <div id="default-carousel" class="relative w-full" data-carousel="slide">
                     <!-- Carousel wrapper -->
                     <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
@@ -45,22 +42,25 @@
                         </span>
                     </button>
                 </div>
-
-
-
             </div>
             <div>
                 <h1 class="font-semibold text-lg">{{$hijab->nama}}</h1>
+                <p>Jumlah Produk {{$hijab->amount}}</p>
+                @if ($hijab->dis_status == 1)
+                <h1 class="text-rose-500 line-through">RP. {{$hijab->price}}</h1>
+                <h1 class="">Rp. {{$hijab->price - $hijab->discount}}</h1>
+                <h1 class="">Anda Hemat Rp. {{$hijab->discount}}</h1>
+                @else
                 <h1>RP. {{$hijab->price}}</h1>
-                <h1>{{$hijab->discount}}</h1>
-                <p>{{$hijab->desc}}</p>
+                @endif
+                <p class="normal-case">{{$hijab->desc}}</p>
 
-                <div class="flex gap-2">
+                <div class="">
                     <form action="{{route('carts.store')}}" method="POST">
                         @csrf
                         <div>
                             <input type="text" value="{{$hijab->id}}" hidden name="product_id">
-                            <input type="number" id="helper-text" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="quntity" value="1">
+                            <input type="number" id="helper-text" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block" name="quntity" value="1">
                             <p id="helper-text-explanation" class="text-sm text-gray-500 dark:text-gray-400">min pembelian 1</p>
                             @error('quntity')
                             <span class="text-rose-500">
@@ -70,13 +70,12 @@
                         </div>
                         <button type="submit" class="bg-yellow-500 p-2 hover:bg-yellow-700 text-white rounded-md">Tambah Ke Cart</button>
                     </form>
-                    <a href="{{route('orders.show', $hijab->slug)}}" class="bg-blue-500 p-2 rounded-md text-white">Beli Langsung</a>
+                    <div class="mt-5">
+                        <a href="{{route('orders.show', $hijab->slug)}}" class="bg-blue-500  hover:bg-blue-700 p-2 rounded-md text-white">Beli Langsung</a>
+                    </div>
 
                 </div>
                 <div>
-                    <!-- <form action="" method="get">
-                        <button type="submit" class="bg-blue-500 p-2 hover:bg-blue-700 text-white rounded-md">Beli Langsung</button>
-                    </form> -->
                 </div>
             </div>
         </div>

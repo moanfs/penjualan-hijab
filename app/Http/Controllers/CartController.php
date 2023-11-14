@@ -24,7 +24,7 @@ class CartController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $this->validate($request, [
-            'quntity'     => 'required'
+            'quntity'     => 'required|min:1'
         ]);
         Carts::create([
             'user_id'   => auth()->id(),
