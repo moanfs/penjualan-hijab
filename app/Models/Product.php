@@ -27,11 +27,22 @@ class Product extends Model
         'status',
     ];
 
+    public function images()
+    {
+        return $this->hasMany(Image::class);
+    }
+
     public function getRouteKeyName(): string
     {
         return 'slug';
     }
 
+    public function getGambar(Product $image)
+    {
+        $image =  Product::select('images.img as image', 'images.product_id as forid', 'products.id as id')
+            ->leftJoin('images', 'products.id', '=', 'images.product_id')
+            ->get();
+    }
     public function scopeFilter($query, array $filters = []): void
     {
         $query->when($filters['search'] ?? false, fn ($query, $search) => $query

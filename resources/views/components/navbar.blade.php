@@ -29,7 +29,7 @@
         @auth
         <div class="flex items-center gap-6">
             <div class="cart">
-                <ion-icon name="cart-outline "></ion-icon>
+                <a href="{{route('carts.index')}}"><ion-icon name="cart-outline" class="text-xl items-center flex"></ion-icon></a>
             </div>
             <div class="profile relative" x-data="{dropdownOpen:false}">
                 <div class="flex items-center gap-5">
@@ -75,19 +75,16 @@
                     <i onclick="onToggleMenu(this)" name"menu" class="menu cursor-pointer md:hidden items-end"></i>
                 </li>
                 <li>
-                    <a class="hover:text-black text-gray-600" href="#">Terbaru</a>
+                    <a class="hover:text-black text-gray-600" href="{{route('terbaru')}}">Terbaru</a>
                 </li>
                 <li>
-                    <a class="hover:text-black text-gray-600" href="#">Hijab</a>
+                    <a class="hover:text-black text-gray-600" href="{{route('hijabs')}}">Hijab</a>
                 </li>
                 <li>
-                    <a class="hover:text-black text-gray-600" href="#">Asesoris</a>
+                    <a class="hover:text-black text-gray-600" href="{{route('sale')}}">Sale</a>
                 </li>
                 <li>
-                    <a class="hover:text-black text-gray-600" href="#">Sale</a>
-                </li>
-                <li>
-                    <a class="hover:text-black text-gray-600" href="#">Promo</a>
+                    <a class="hover:text-black text-gray-600" href="{{route('promo')}}">Promo</a>
                 </li>
             </ul>
         </div>

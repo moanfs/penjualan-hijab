@@ -1,5 +1,5 @@
 <!-- It is not the man who has too little, but the man who craves more, that is poor. - Seneca -->
-<footer class="bg-white dark:bg-gray-900">
+<footer class="bg-white mt-auto dark:bg-gray-900">
     <div class="container w-[80%] p-6 mx-auto">
         <div class="lg:flex">
             <div class="w-full -mx-6 lg:w-2/5">

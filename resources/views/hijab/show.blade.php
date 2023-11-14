@@ -1,22 +1,86 @@
 <x-app-layout>
     <div class="w-[80%] mx-auto bg-white">
-        <div class="flex gap-10 py-5">
+        <div class="grid-cols-2 grid gap-10 py-5">
             <div>
-                <img class="object-cover rounded-t-lg w-full md:h-60 h-36" src="data:image/jpeg;base64,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" alt="NIKE AIR">
+
+
+
+                <div id="default-carousel" class="relative w-full" data-carousel="slide">
+                    <!-- Carousel wrapper -->
+                    <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
+                        <!-- Item 1 -->
+                        @forelse ($images as $image)
+                        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                            <img src="{{ asset('/storage/products/'. $image->image ) }}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+                        </div>
+                        @empty
+                        <div>
+                            <img src="{{ ('img/default-image.jpg') }}">
+                        </div>
+                        @endforelse
+
+                    </div>
+                    <!-- Slider indicators -->
+                    <div class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
+                        @forelse ( $images as $image )
+                        <button type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
+                        @empty
+                        @endforelse
+                    </div>
+                    <!-- Slider controls -->
+                    <button type="button" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
+                        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                            <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4" />
+                            </svg>
+                            <span class="sr-only">Previous</span>
+                        </span>
+                    </button>
+                    <button type="button" class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
+                        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                            <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
+                            </svg>
+                            <span class="sr-only">Next</span>
+                        </span>
+                    </button>
+                </div>
+
+
+
             </div>
             <div>
-                <h1>{{$hijab->nama}}</h1>
+                <h1 class="font-semibold text-lg">{{$hijab->nama}}</h1>
                 <h1>RP. {{$hijab->price}}</h1>
                 <h1>{{$hijab->discount}}</h1>
                 <p>{{$hijab->desc}}</p>
+
                 <div class="flex gap-2">
-                    <form action="{{route('carts.store', $hijab->id)}}">
+                    <form action="{{route('carts.store')}}" method="POST">
+                        @csrf
+                        <div>
+                            <input type="text" value="{{$hijab->id}}" hidden name="product_id">
+                            <input type="number" id="helper-text" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="quntity" value="1">
+                            <p id="helper-text-explanation" class="text-sm text-gray-500 dark:text-gray-400">min pembelian 1</p>
+                            @error('quntity')
+                            <span class="text-rose-500">
+                                <p>{{ $message }}</p>
+                            </span>
+                            @enderror
+                        </div>
                         <button type="submit" class="bg-yellow-500 p-2 hover:bg-yellow-700 text-white rounded-md">Tambah Ke Cart</button>
                     </form>
-                    <a href="" class="bg-blue-500 p-2 hover:bg-blue-700 text-white rounded-md">Beli Langsung</a>
+                    <a href="{{route('orders.show', $hijab->slug)}}" class="bg-blue-500 p-2 rounded-md text-white">Beli Langsung</a>
+
+                </div>
+                <div>
+                    <!-- <form action="" method="get">
+                        <button type="submit" class="bg-blue-500 p-2 hover:bg-blue-700 text-white rounded-md">Beli Langsung</button>
+                    </form> -->
                 </div>
             </div>
         </div>
 
     </div>
+
 </x-app-layout>

@@ -31,7 +31,7 @@
 <body class="font-sans antialiased">
     <!-- <x-banner /> -->
 
-    <div class="min-h-screen bg-gray-100">
+    <div class="min-h-screen bg-gray-100 flex flex-col">
         <x-navbar />
 
         <!-- Page Content -->
@@ -48,5 +48,6 @@
 </body>
 
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+
 
 </html>

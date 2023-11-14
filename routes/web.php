@@ -16,15 +16,16 @@ use App\Http\Controllers\PostController;
 
 Route::resource('/', App\Http\Controllers\DashboardController::class)->only('index');
 Route::resource('hijab', App\Http\Controllers\PostController::class)->only(['show', 'index']);
+Route::get('promo', [App\Http\Controllers\ProductController::class, 'promo'])->name('promo');
+Route::get('hijabs', [App\Http\Controllers\ProductController::class, 'hijabs'])->name('hijabs');
+Route::get('terbaru', [App\Http\Controllers\ProductController::class, 'terbaru'])->name('terbaru');
+Route::get('sale', [App\Http\Controllers\ProductController::class, 'sale'])->name('sale');
+Route::get('brands', [App\Http\Controllers\ProductController::class, 'brands'])->name('brands');
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
-    Route::resource('carts', App\Http\Controllers\ProductController::class)->only('store');
-});
-Route::get('/terbaru', function () {
-    return view('terbaru');
-});
-Route::get('/populer', function () {
-    return view('populer');
+    Route::resource('carts', App\Http\Controllers\CartController::class);
+    Route::resource('orders', App\Http\Controllers\OrderController::class);
+    Route::post('pay', [App\Http\Controllers\PaymentController::class, 'pay'])->name('pay');
 });
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
@@ -39,14 +40,10 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::resource('admin', App\Http\Controllers\admin\DashboardController::class)->only(['index']);
 });
 
-
-
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('welcome');
-    })->name('dashboard');
-});
+// Route::middleware([
+//     'auth:sanctum',
+//     config('jetstream.auth_session'),
+//     'verified'
+// ])->group(function () {
+Route::get('/',  [App\Http\Controllers\DashboardController::class, 'index'])->name('/');
+// });
