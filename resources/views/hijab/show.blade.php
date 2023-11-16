@@ -54,25 +54,35 @@
                 <h1>RP. {{$hijab->price}}</h1>
                 @endif
                 <p class="normal-case">{{$hijab->desc}}</p>
-
-                <div class="">
+                <div>
+                    <input type="number" id="inputLuarForm" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block" value="1">
+                    <p id="helper-text-explanation" class="text-sm text-gray-500 dark:text-gray-400">min pembelian 1</p>
+                    @error('quntity')
+                    <span class="text-rose-500">
+                        <p>{{ $message }}</p>
+                    </span>
+                    @enderror
+                    @if (session()->has('gagal'))
+                    <span class="text-rose-500">
+                        {{session('gagal')}}
+                    </span>
+                    @endif
+                </div>
+                <div class="flex gap-2">
+                    <form action="{{route('orders.store')}}" method="post">
+                        @csrf
+                        <input type="text" value="{{$hijab->id}}" hidden name="product_id">
+                        <input type="number" id="jumlahBarang" hidden name="quntity" value="1">
+                        <button type="submit" class="bg-blue-500  hover:bg-blue-700 p-2 rounded-md text-white">Beli Langsung</button>
+                    </form>
                     <form action="{{route('carts.store')}}" method="POST">
                         @csrf
                         <div>
                             <input type="text" value="{{$hijab->id}}" hidden name="product_id">
-                            <input type="number" id="helper-text" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block" name="quntity" value="1">
-                            <p id="helper-text-explanation" class="text-sm text-gray-500 dark:text-gray-400">min pembelian 1</p>
-                            @error('quntity')
-                            <span class="text-rose-500">
-                                <p>{{ $message }}</p>
-                            </span>
-                            @enderror
+                            <input type="number" id="jumlahBarang2" hidden name="quntity" value="1">
                         </div>
                         <button type="submit" class="bg-yellow-500 p-2 hover:bg-yellow-700 text-white rounded-md">Tambah Ke Cart</button>
                     </form>
-                    <div class="mt-5">
-                        <a href="{{route('orders.show', $hijab->slug)}}" class="bg-blue-500  hover:bg-blue-700 p-2 rounded-md text-white">Beli Langsung</a>
-                    </div>
 
                 </div>
                 <div>
@@ -81,5 +91,16 @@
         </div>
 
     </div>
+
+    <script type="text/javascript">
+        var inputLuarForm = document.getElementById('inputLuarForm');
+        var jumlahBarang = document.getElementById('jumlahBarang');
+        var jumlahBarang2 = document.getElementById('jumlahBarang2');
+        inputLuarForm.addEventListener('input', function() {
+            // Memperbarui nilai input tersembunyi dalam formulir
+            jumlahBarang.value = inputLuarForm.value;
+            jumlahBarang2.value = inputLuarForm.value;
+        });
+    </script>
 
 </x-app-layout>

@@ -14,6 +14,9 @@ use App\Http\Controllers\PostController;
 |
 */
 
+/**
+ * user punya
+ */
 Route::resource('/', App\Http\Controllers\DashboardController::class)->only('index');
 Route::resource('hijab', App\Http\Controllers\PostController::class)->only(['show', 'index']);
 Route::get('promo', [App\Http\Controllers\ProductController::class, 'promo'])->name('promo');
@@ -21,13 +24,17 @@ Route::get('hijabs', [App\Http\Controllers\ProductController::class, 'hijabs'])-
 Route::get('terbaru', [App\Http\Controllers\ProductController::class, 'terbaru'])->name('terbaru');
 Route::get('sale', [App\Http\Controllers\ProductController::class, 'sale'])->name('sale');
 Route::get('brands', [App\Http\Controllers\ProductController::class, 'brands'])->name('brands');
-
+// wajib login
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::resource('carts', App\Http\Controllers\CartController::class);
-    Route::resource('orders', App\Http\Controllers\OrderController::class);
-    Route::post('pay', [App\Http\Controllers\PaymentController::class, 'pay'])->name('pay');
+    Route::resource('orders', App\Http\Controllers\OrderController::class)->only(['store']);
+    Route::post('checkout', [App\Http\Controllers\PaymentController::class, 'checkout'])->name('checkout');
+    // Route::post('checkout', [App\Http\Controllers\PaymentController::class, 'checkout'])->name('checkout');
 });
 
+/**
+ * Admin
+ */
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::resource('admin/products', App\Http\Controllers\admin\ProductController::class);
     Route::resource('admin/category', App\Http\Controllers\admin\CategoryController::class);
