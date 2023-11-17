@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class User extends Authenticatable
 {
@@ -29,7 +30,9 @@ class User extends Authenticatable
         'password',
         'address',
         'zip_code',
-        'city'
+        'city',
+        'provinsi',
+        'type'
     ];
 
     /**

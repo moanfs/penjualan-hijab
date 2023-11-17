@@ -22,8 +22,9 @@
                         </div>
                     </li>
                 </ol>
-                <div class="bg-blue-600 text-white p-1 text-[0.75rem] md:text-[1rem] rounded-lg hover:bg-blue-800">
-                    <a href="{{route('products.create')}}">Tambah Product</a>
+                <div class="">
+                    <a href="{{route('products.create')}}" class="bg-blue-600 text-white p-1 text-[0.75rem] md:text-[1rem] gap-2 rounded-lg hover:bg-blue-800">Tambah Product</a>
+                    <a href="{{route('download-produk')}}" class="bg-blue-600 text-white p-1 text-[0.75rem] md:text-[1rem] gap-2 rounded-lg hover:bg-blue-800">Download Produk</a>
                 </div>
             </nav>
 

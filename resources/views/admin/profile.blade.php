@@ -25,6 +25,18 @@
 
             </nav>
             <div class="bg-white rounded mx-auto p-4">
+                <div>
+                    <div>
+                        <div>
+                            <label for="">Nama :</label>
+                            <input type="text" name="" value="{{$profile->name}}" class="border-none" disabled>
+                        </div>
+                        <div>
+                            <label for="">Email :</label>
+                            <input type="text" name="" value="{{$profile->email}}" class="border-none" disabled>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

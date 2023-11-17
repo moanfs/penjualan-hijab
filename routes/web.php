@@ -17,6 +17,7 @@ use App\Http\Controllers\PostController;
 /**
  * user punya
  */
+// Route::middleware(['role:user'],)->group(function () {
 Route::resource('/', App\Http\Controllers\DashboardController::class)->only('index');
 Route::resource('hijab', App\Http\Controllers\PostController::class)->only(['show', 'index']);
 Route::get('promo', [App\Http\Controllers\ProductController::class, 'promo'])->name('promo');
@@ -24,8 +25,10 @@ Route::get('hijabs', [App\Http\Controllers\ProductController::class, 'hijabs'])-
 Route::get('terbaru', [App\Http\Controllers\ProductController::class, 'terbaru'])->name('terbaru');
 Route::get('sale', [App\Http\Controllers\ProductController::class, 'sale'])->name('sale');
 Route::get('brands', [App\Http\Controllers\ProductController::class, 'brands'])->name('brands');
+// });
+
 // wajib login
-Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
+Route::middleware(['auth:sanctum', 'role:user', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::resource('carts', App\Http\Controllers\CartController::class);
     Route::resource('orders', App\Http\Controllers\OrderController::class)->only(['store']);
     Route::post('checkout', [App\Http\Controllers\PaymentController::class, 'checkout'])->name('checkout');
@@ -35,7 +38,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 /**
  * Admin
  */
-Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
+Route::middleware(['auth:sanctum', 'role:admin', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::resource('admin/products', App\Http\Controllers\admin\ProductController::class);
     Route::resource('admin/category', App\Http\Controllers\admin\CategoryController::class);
     Route::resource('admin/brand', App\Http\Controllers\admin\BrandController::class);
@@ -45,6 +48,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::resource('admin/shipping', App\Http\Controllers\admin\ShippingController::class);
     Route::resource('admin/admin-profile', App\Http\Controllers\admin\ProfileController::class)->only(['index', 'edit', 'update']);
     Route::resource('admin', App\Http\Controllers\admin\DashboardController::class)->only(['index']);
+    Route::get('admin/download-produk', [App\Http\Controllers\admin\DownloadController::class, 'produk'])->name('download-produk');
 });
 
 // Route::middleware([
@@ -52,5 +56,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 //     config('jetstream.auth_session'),
 //     'verified'
 // ])->group(function () {
-Route::get('/',  [App\Http\Controllers\DashboardController::class, 'index'])->name('/');
+// Route::get('dashboard',  [App\Http\Controllers\DashboardController::class, 'index'])->name('/');
 // });
+
+// require 'admin.php';
