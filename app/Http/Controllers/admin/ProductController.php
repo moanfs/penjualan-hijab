@@ -11,6 +11,7 @@ use Illuminate\Auth\Events\Validated;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
@@ -79,5 +80,66 @@ class ProductController extends Controller
         Image::insert($insert);
 
         return redirect()->route('products.index')->with(['success' => 'Kategori baru berhasil ditambah']);
+    }
+
+    public function edit(string $id): View
+    {
+        return view(
+            'admin.products-edit',
+            [
+                'product' => Product::findOrFail($id),
+                'categories' => Category::all(),
+                'brands' => Brand::all(),
+            ]
+        );
+    }
+
+    public function update(Request $request, $id)
+    {
+        if ($request->has('status')) {
+            $request->validate([
+                'discount' => 'required'
+            ]);
+        }
+        // validate form
+        $request->validate([
+            'images'     => 'required',
+            'images.*'     => 'image|mimes:jpeg,jpg,png|max:2048',
+            'nama'     => 'required|min:5',
+            'price'     => 'required|min:5',
+            'desc'     => 'required|min:5',
+            'brand_id'     => 'required',
+            'amount'     => 'required',
+            'category_id'     => 'required',
+        ]);
+
+        // mencari data berdasarkan id
+        $product = Product::join('images', 'images.product_id', '=', 'products.id')->findOrFail($id);
+        // upload product
+        $product->update([
+            'category_id'  => $request->category_id,
+            'brand_id'     => $request->brand_id,
+            'nama'     => $request->nama,
+            'slug'      => str::of($request->nama)->slug('-'),
+            'price'      => $request->price,
+            'discount'      => $request->discount,
+            'amount'      => $request->amount,
+            'desc'      => $request->desc,
+            'dis_status' => $request->dis_status
+        ]);
+        $id = $product->id;
+
+        Storage::delete('public/products/' . $product->img);
+        // upload image
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $key => $file) {
+                $file->storeAs('public/products', $file->hashName());
+                $insert[$key]['product_id'] = $id;
+                $insert[$key]['img'] = $file->hashName();
+            }
+        }
+        Image::insert($insert);
+
+        return redirect()->route('products.index')->with(['success' => 'Produk baru berhasil di edit']);
     }
 }

@@ -18,14 +18,13 @@
                             <svg class="w-3 h-3 mx-1 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
                             </svg>
-                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Products</span>
+                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Pengiriman</span>
                         </div>
                     </li>
                 </ol>
-                <div class="">
-                    <a href="{{route('products.create')}}" class="bg-blue-600 text-white p-1 text-[0.75rem] md:text-[1rem] gap-2 rounded-lg hover:bg-blue-800">Tambah Product</a>
-                    <a href="{{route('download-produk')}}" class="bg-blue-600 text-white p-1 text-[0.75rem] md:text-[1rem] gap-2 rounded-lg hover:bg-blue-800">Download Produk</a>
-                </div>
+                <!-- <div class="bg-blue-600 text-white p-1 rounded-lg hover:bg-blue-800">
+                    <a href="{{route('brand.create')}}">Download</a>
+                </div> -->
             </nav>
 
             <div class="relative bg-white p-4 overflow-x-auto shadow-md sm:rounded-lg">
@@ -45,67 +44,46 @@
                     {{session('success')}}
                 </span>
                 @endif
-                <table id="table_id" class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th scope="col" class="px-6 py-3">
-                                Nama Produk
+                                Nama Pembeli
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Brand
+                                Jumlah Produk
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Kategori
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Jumlah
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Diskon
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Aksi
+                                Total Harga
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($products as $product)
+                        @forelse ($pengiriman as $post)
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{$product->nama}}
+                                {{$post->name}}
+                            </th>
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{$post->jumlah}}
+                            </th>
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{$post->harga}}
                             </th>
                             <td class="px-6 py-4">
-                                {{$product->brtel}}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{$product->catel}}
-                            </td>
-                            <td class="px-6 py-4">
-                                @if ($product->dis_status = 1)
-                                {{$product->discount}}
-                                @else
-                                <span>tidak ada</span>
-                                @endif
-                            </td>
-                            <td class="px-6 py-4">
-                                {{$product->amount}}
-                            </td>
-                            <td class="px-6 py-4">
-                                <a href="{{route('products.edit', $product->id)}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                <a href="{{route('brand.show', $post->id)}}" class="font-medium text-white bg-green-500 p-2 rounded-lg hover:bg-green-800">Show</a>
+                                <a href="{{route('brand.edit', $post->id)}}" class="font-medium text-white bg-blue-500 p-2 rounded-lg  hover:bg-blue-800">Edit</a>
                             </td>
                         </tr>
                         @empty
                         <div class="bg-rose-500 rounded-sm py-1 text-white text-center">
-                            Data Produk Tidak Tersedia
+                            <p>Data Pengiriman Tidak Tersedia</p>
                         </div>
                         @endforelse
-
-
                     </tbody>
                 </table>
             </div>
 
         </div>
     </div>
-
 </x-admin-layout>

@@ -32,6 +32,6 @@ class UserController extends Controller
             'status'     => $request->status,
         ]);
 
-        return redirect()->back()->with(['success' => 'Data User Berhasil Di Non']);
+        return redirect()->back()->with(['success' => 'Data User Berhasil Di Non aktifkan']);
     }
 }
