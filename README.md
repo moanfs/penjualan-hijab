@@ -30,6 +30,10 @@ composer install
 npm install
 ```
 
+```
+composer require kavist/rajaongkir:^1.1 --ignore-platform-reqs
+```
+
 2. setelah rename file dengan nama .evn.example menjasi .env
 3. setelah itu generate key dengan copy dibawah
 
