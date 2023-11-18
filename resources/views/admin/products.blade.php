@@ -1,4 +1,5 @@
 <x-admin-layout>
+    @section('title') {{'Produk'}} @endsection
     <div class="p-4 sm:ml-64">
         <div class="p-4 dark:border-gray-700 mt-14">
 
@@ -64,6 +65,9 @@
                                 Diskon
                             </th>
                             <th scope="col" class="px-6 py-3">
+                                Berat (gram)
+                            </th>
+                            <th scope="col" class="px-6 py-3">
                                 Aksi
                             </th>
                         </tr>
@@ -81,6 +85,9 @@
                                 {{$product->catel}}
                             </td>
                             <td class="px-6 py-4">
+                                {{$product->amount}}
+                            </td>
+                            <td class="px-6 py-4">
                                 @if ($product->dis_status = 1)
                                 {{$product->discount}}
                                 @else
@@ -88,10 +95,18 @@
                                 @endif
                             </td>
                             <td class="px-6 py-4">
-                                {{$product->amount}}
+                                {{$product->weight}}
                             </td>
                             <td class="px-6 py-4">
-                                <a href="{{route('products.edit', $product->id)}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                <form onsubmit="return confirm('Apakah Anda Yakin Ingin Hapus?');" action="{{ route('products.destroy', $product->id) }}" method="POST">
+                                    <div class="flex justify-end gap-2">
+                                        <a href="{{route('products.edit', $product->id)}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="rounded-lg font-medium text-rose-500 hover:underline">HAPUS</button>
+                                    </div>
+                                </form>
+
                             </td>
                         </tr>
                         @empty

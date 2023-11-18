@@ -1,5 +1,5 @@
 <x-admin-layout>
-    @section('title') {{'Lihat Merek'}} @endsection
+    @section('title') {{'Lihat Penjualan'}} @endsection
     <div class="p-4 sm:ml-64">
         <div class="p-4 dark:border-gray-700 mt-14">
 
@@ -19,7 +19,7 @@
                             <svg class="w-3 h-3 mx-1 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
                             </svg>
-                            <a href="{{route('brand.index')}}" class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">Brands</a>
+                            <a href="{{route('category.index')}}" class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">Brands</a>
                         </div>
                     </li>
                     <li aria-current="page">
@@ -27,21 +27,18 @@
                             <svg class="w-3 h-3 mx-1 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
                             </svg>
-                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Show Brand {{$brand->title}}</span>
+                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Show Kategori {{$category->title}}</span>
                         </div>
                     </li>
                 </ol>
 
             </nav>
             <div class="bg-white rounded mx-auto p-4">
-                <p class="mt-2 text-lg text-black">Nama Brand : {{$brand->title}}</p>
-                <div class="flex gap-3">
-                    <label for="logo" class="mt-2 text-lg text-black">Logo Brand : </label>
-                    <img class="h-auto max-w-[10rem] my-3 shadow-md" src="{{ asset('/storage/brands/'.$brand->logo) }}" alt="logo">
-                </div>
-                <form onsubmit="return confirm('Apakah Anda Yakin Ingin Hapus?');" action="{{ route('brand.destroy', $brand->id) }}" method="POST">
+                <p class="mt-2 text-lg text-black">Nama Kategori : {{$category->title}}</p>
+                <p class="mt-2 text-lg text-black">Deskripsi Kategori : {{$category->desc}}</p>
+                <form onsubmit="return confirm('Apakah Anda Yakin Ingin Hapus?');" action="{{ route('category.destroy', $category->id) }}" method="POST">
                     <div class="flex justify-end gap-2">
-                        <a href="{{ route('brand.edit', $brand->id) }}" class="bg-blue-500 hover:bg-blue-800 text-white p-2 rounded-lg">EDIT</a>
+                        <a href="{{ route('category.edit', $category->id) }}" class="bg-blue-500 hover:bg-blue-800 text-white p-2 rounded-lg">EDIT</a>
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="bg-rose-500 hover:bg-rose-800 text-white p-2 rounded-lg">HAPUS</button>

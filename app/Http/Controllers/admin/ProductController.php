@@ -52,6 +52,7 @@ class ProductController extends Controller
             'desc'     => 'required|min:5',
             'brand_id'     => 'required',
             'amount'     => 'required',
+            'weight' => 'required',
             'category_id'     => 'required',
         ]);
 
@@ -65,6 +66,7 @@ class ProductController extends Controller
             'discount'      => $request->discount,
             'amount'      => $request->amount,
             'desc'      => $request->desc,
+            'weight' => 'required',
             'dis_status' => $request->dis_status
         ]);
         $id = $product->id;
@@ -79,7 +81,7 @@ class ProductController extends Controller
         }
         Image::insert($insert);
 
-        return redirect()->route('products.index')->with(['success' => 'Kategori baru berhasil ditambah']);
+        return redirect()->route('products.index')->with(['success' => 'Produk baru berhasil ditambah']);
     }
 
     public function edit(string $id): View
@@ -101,45 +103,83 @@ class ProductController extends Controller
                 'discount' => 'required'
             ]);
         }
-        // validate form
-        $request->validate([
-            'images'     => 'required',
-            'images.*'     => 'image|mimes:jpeg,jpg,png|max:2048',
-            'nama'     => 'required|min:5',
-            'price'     => 'required|min:5',
-            'desc'     => 'required|min:5',
-            'brand_id'     => 'required',
-            'amount'     => 'required',
-            'category_id'     => 'required',
-        ]);
-
         // mencari data berdasarkan id
-        $product = Product::join('images', 'images.product_id', '=', 'products.id')->findOrFail($id);
-        // upload product
-        $product->update([
-            'category_id'  => $request->category_id,
-            'brand_id'     => $request->brand_id,
-            'nama'     => $request->nama,
-            'slug'      => str::of($request->nama)->slug('-'),
-            'price'      => $request->price,
-            'discount'      => $request->discount,
-            'amount'      => $request->amount,
-            'desc'      => $request->desc,
-            'dis_status' => $request->dis_status
-        ]);
-        $id = $product->id;
+        $product = Product::findOrFail($id);
+        $gambar = Product::join('images', 'products.id', '=', 'images.product_id')
+            ->where('images.product_id', $id)
+            ->get('images.*');
+        // dd($gambar);
+        foreach ($gambar as $key => $gam) {
+            $gamm[$key] = [$gam->img];
+            dd($gamm);
+        }
+        if (!$request->hasFile('images')) {
+            // validate form
+            $request->validate([
+                'nama'     => 'required|min:5',
+                'price'     => 'required|min:5',
+                'desc'     => 'required|min:5',
+                'brand_id'     => 'required',
+                'amount'     => 'required',
+                'category_id'     => 'required',
+            ]);
+            // upload product
+            $product->update([
+                'category_id'  => $request->category_id,
+                'brand_id'     => $request->brand_id,
+                'nama'     => $request->nama,
+                'slug'      => str::of($request->nama)->slug('-'),
+                'price'      => $request->price,
+                'discount'      => $request->discount,
+                'amount'      => $request->amount,
+                'desc'      => $request->desc,
+                'dis_status' => $request->dis_status
+            ]);
+        } else {
+            // validate form
+            $request->validate([
+                'images'     => 'required',
+                'images.*'     => 'image|mimes:jpeg,jpg,png|max:2048',
+                'nama'     => 'required|min:5',
+                'price'     => 'required|min:5',
+                'desc'     => 'required|min:5',
+                'brand_id'     => 'required',
+                'amount'     => 'required',
+                'category_id'     => 'required',
+            ]);
+            // upload product
+            $product->update([
+                'category_id'  => $request->category_id,
+                'brand_id'     => $request->brand_id,
+                'nama'     => $request->nama,
+                'slug'      => str::of($request->nama)->slug('-'),
+                'price'      => $request->price,
+                'discount'      => $request->discount,
+                'amount'      => $request->amount,
+                'desc'      => $request->desc,
+                'dis_status' => $request->dis_status
+            ]);
+            // $id = $product->id;
 
-        Storage::delete('public/products/' . $product->img);
-        // upload image
-        if ($request->hasFile('images')) {
+            // Storage::delete('public/products/' . $product->img);
+            // upload image
+            // if ($request->hasFile('images')) {
             foreach ($request->file('images') as $key => $file) {
                 $file->storeAs('public/products', $file->hashName());
                 $insert[$key]['product_id'] = $id;
                 $insert[$key]['img'] = $file->hashName();
+                // }
             }
+            $gambar->update($insert);
         }
-        Image::insert($insert);
 
         return redirect()->route('products.index')->with(['success' => 'Produk baru berhasil di edit']);
+    }
+
+    public function destroy($id): RedirectResponse
+    {
+        $post = Product::findOrFail($id);
+        $post->delete();
+        return redirect()->route('products.index')->with(['success' => 'Data Produk Berhasil Dihapus!']);
     }
 }

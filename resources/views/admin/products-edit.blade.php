@@ -1,4 +1,5 @@
 <x-admin-layout>
+    @section('title') {{'Edit Produk'}} @endsection
     <div class="p-4 sm:ml-64">
         <div class="p-4 dark:border-gray-700 mt-14">
             <!-- Breadcrumb -->
@@ -31,8 +32,9 @@
                 </ol>
             </nav>
             <div class="bg-white rounded p-4">
-                <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    @method('PUT')
                     <div>
                         <label for="namaproduk" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Produk <span class="text-rose-500">*</span></label>
                         <input type="text" name="nama" id="namaproduk" value="{{old('nama', $product->nama)}}" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Hijab Mutiara">
@@ -78,7 +80,7 @@
                             <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-e-0 border-gray-300 rounded-s-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
                                 Rp.
                             </span>
-                            <input type="text" name="discount" id="discount" aria-describedby="helper-text-explanation" class="rounded-none rounded-e-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="100.000">
+                            <input type="text" name="discount" id="discount" value="{{old('discount', $product->discount)}}" aria-describedby="helper-text-explanation" class="rounded-none rounded-e-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="100.000">
                         </div>
                         @error('discount')
                         <span class="text-rose-500">
@@ -102,7 +104,7 @@
                         <select id="category" name="category_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option disabled selected>Pilih Kategori Produk</option>
                             @foreach ($categories as $category)
-                            <option value="{{$category->id}}">{{$category->title}}</option>
+                            <option value="{{$category->id}}" {{$category->id == $product->category_id ? 'selected' : ''}}>{{$category->title}}</option>
                             @endforeach
                         </select>
                         @error('category_id')
@@ -117,7 +119,7 @@
                         <select id="brand" name="brand_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option disabled selected>Pilih Brand Produk</option>
                             @foreach ($brands as $brand)
-                            <option value="{{$brand->id}}">{{$brand->title}}</option>
+                            <option value="{{$brand->id}}" {{$brand->id == $product->brand_id ? 'selected' : ''}}>{{$brand->title}}</option>
                             @endforeach
                         </select>
                         @error('brand_id')

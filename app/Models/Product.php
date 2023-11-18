@@ -23,6 +23,7 @@ class Product extends Model
         'discount',
         'dis_status',
         'amount',
+        'weight',
         'desc',
         'status',
     ];

@@ -6,14 +6,16 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
         Schema::create('cities', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('province_id');
-            $table->string('type');
+            $table->unsignedInteger('province_id');
+            $table->unsignedInteger('city_id');
             $table->string('name');
-            $table->string('postal_code');
             $table->timestamps();
         });
     }
