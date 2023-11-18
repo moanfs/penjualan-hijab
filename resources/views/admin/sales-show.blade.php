@@ -19,7 +19,7 @@
                             <svg class="w-3 h-3 mx-1 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
                             </svg>
-                            <a href="{{route('category.index')}}" class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">Brands</a>
+                            <a href="{{route('saleing.index')}}" class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">Penjualan</a>
                         </div>
                     </li>
                     <li aria-current="page">
@@ -27,23 +27,15 @@
                             <svg class="w-3 h-3 mx-1 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
                             </svg>
-                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Show Kategori {{$category->title}}</span>
+                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Lihat Detail Penjualan</span>
                         </div>
                     </li>
                 </ol>
 
             </nav>
             <div class="bg-white rounded mx-auto p-4">
-                <p class="mt-2 text-lg text-black">Nama Kategori : {{$category->title}}</p>
-                <p class="mt-2 text-lg text-black">Deskripsi Kategori : {{$category->desc}}</p>
-                <form onsubmit="return confirm('Apakah Anda Yakin Ingin Hapus?');" action="{{ route('category.destroy', $category->id) }}" method="POST">
-                    <div class="flex justify-end gap-2">
-                        <a href="{{ route('category.edit', $category->id) }}" class="bg-blue-500 hover:bg-blue-800 text-white p-2 rounded-lg">EDIT</a>
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="bg-rose-500 hover:bg-rose-800 text-white p-2 rounded-lg">HAPUS</button>
-                    </div>
-                </form>
+                <p class="mt-2 text-lg text-black">Nama Pembeli : {{$sales->name}}</p>
+                <p class="mt-2 text-lg text-black">Nama Produk : {{$sales->nama}}</p>
             </div>
         </div>
     </div>

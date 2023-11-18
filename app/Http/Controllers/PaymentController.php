@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Carts;
 use App\Models\Invoice;
 use App\Models\Order;
 use App\Models\Product;
@@ -10,23 +11,26 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Veritrans\Veritrans;
 use Illuminate\Support\Facades\Http;
-use Kavist\RajaOngkir\Facades\RajaOngkir;
+// use Kavist\RajaOngkir\Facades\RajaOngkir;
+use Kavist\RajaOngkir\RajaOngkir;
 
 class PaymentController extends Controller
 {
-    private $apiKey = '57a8d5402fd6c08dbb10a18e5e595e65';
-    // public $result = [];
-    // public $nama_jasa;
-    public function checkout(Request $request)
+    private $apiKey = '9f4cbb907415618801c626dd68723d41';
+
+    // untuk cek ongkos kirim
+    public function cekongkir(Request $request)
     {
+        // dd($cartid);
         $rajaOngkir = new RajaOngkir($this->apiKey);
-        $daftarProvinsi = RajaOngkir::ongkosKirim([
+        $daftarProvinsi = $rajaOngkir->ongkosKirim([
             'origin'        => 155,     // ID kota/kabupaten asal
             'destination'   => $request->destination,      // ID kota/kabupaten tujuan
             'weight'        => $request->weight,    // berat barang dalam gram
             'courier'       => $request->courier    // kode kurir pengiriman: ['jne', 'tiki', 'pos'] untuk starter
         ]);
-        // dd($daftarProvinsi);
+        $produkid = $request->produk;
+        // dd($produkid);
         // var_dump($daftarProvinsi);
         $result = $daftarProvinsi->get();
         // dd($result);
@@ -42,7 +46,18 @@ class PaymentController extends Controller
                 'etd'        => $row['cost'][0]['etd'],
             );
         }
-        // dd($hasil);
+
+        //hapus cart jika produk dari cart
+        if (!empty($request->cartid)) {
+            $cart = Carts::where('id', $request->cartid);
+            $cart->delete();
+        }
+
+        $this->validate($request, [
+            'amount' => 'required',
+            'destination' => 'required',
+            'address' => 'required'
+        ]);
 
         $order = Order::create([
             'product_id'    => $request->produk,
@@ -52,41 +67,105 @@ class PaymentController extends Controller
             'address' => $request->address
         ]);
 
-        $pesanan = Product::where('id', $request->produk)->first();
+        $idorder = $order->id;
+        // dd($idorder);
+
+        return view('frontend.cekogkir', compact('hasil', 'nama_jasa', 'idorder', 'produkid'));
+    }
+    public function checkout(Request $request)
+    {
+
         $user = User::where('id', auth()->id())->first();
-        $detailpesanan = Order::join('products', 'products.id', '=', 'orders.product_id')
-            ->where('orders.product_id', $order->product_id)
+        $order = Order::where('id', $request->idorder)->first();
+
+        $produk = Order::join('products', 'products.id', '=', 'orders.product_id')
+            ->where('products.id', $request->produkid)
             ->first();
-
-        if ($pesanan->dis_status == 1) {
-            $harga = $pesanan->price - $pesanan->discount;
+        $jumlahdibeli = Order::where('orders.id', $request->idorder)->first();
+        // dd($jumlahdibeli);
+        if ($produk->dis_status == 1) {
+            $harga = $produk->price - $produk->discount;
         } else {
-            $harga = $pesanan->price;
+            $harga = $produk->price;
         }
-        $total = $harga * $request->amount;
-        // dd($total);
-        // Set your Merchant Server Key
-        \Midtrans\Config::$serverKey = config('midtrans.server_key');
-        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
-        \Midtrans\Config::$isProduction = false;
-        // Set sanitization on (default)
-        \Midtrans\Config::$isSanitized = true;
-        // Set 3DS transaction for credit card to true
-        \Midtrans\Config::$is3ds = true;
+        $biayaongkir = $request->biayaongkir;
+        // dd($harga);
+        $totalsamaongkir = $harga + $request->biayaongkir;
+        // dd($totalsamaongkir);
+        // dd($produk);
 
-        $params = array(
-            'transaction_details' => array(
-                'order_id' => $order->id,
-                'gross_amount' => $total,
-            ),
-            'customer_details' => array(
-                'name' => $user->name,
-                'email' => $user->email,
-            ),
-        );
-        $snapToken = \Midtrans\Snap::getSnapToken($params);
+        $order->update([
+            'nama_jasa' => $request->namajasa,
+            'totalselurh' => $totalsamaongkir
+        ]);
+
+        // $pesanan = Product::where('id', $request->produk)->first();
 
 
-        return view('frontend.checkout', compact('snapToken', 'detailpesanan', 'user', 'total', 'order', 'hasil', 'nama_jasa'));
+        // // Set your Merchant Server Key
+        // \Midtrans\Config::$serverKey = config('midtrans.server_key');
+        // // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+        // \Midtrans\Config::$isProduction = false;
+        // // Set sanitization on (default)
+        // \Midtrans\Config::$isSanitized = true;
+        // // Set 3DS transaction for credit card to true
+        // \Midtrans\Config::$is3ds = true;
+
+        // $params = array(
+        //     'transaction_details' => array(
+        //         'order_id' => $order->id,
+        //         'gross_amount' => $totalsamaongkir,
+        //     ),
+        //     'customer_details' => array(
+        //         'name' => $user->name,
+        //         'email' => $user->email,
+        //     ),
+        // );
+        // $snapToken = \Midtrans\Snap::getSnapToken($params);
+
+
+        return view('frontend.checkout', compact('produk', 'user', 'totalsamaongkir', 'harga', 'jumlahdibeli', 'biayaongkir'));
+    }
+
+    public function pesan(Request $request)
+    {
+
+        $updateProduk = Product::where('id', $request->idproduk)->first();
+        $dibeli = Order::where('id', $request->idorder)->first();
+
+        if ($dibeli->totalselurh != $request->pembayaran) {
+            return redirect()->back()->with('gagal', 'pembayaran harus sama dengan total pembayaran');
+        } else {
+            $dibeli->update([
+                'resi' => rand(),
+                'status_pay' => 'Paid'
+            ]);
+
+            $updateProduk->update([
+                'amount' => $updateProduk->amount -= $dibeli->amount
+            ]);
+        }
+
+        return redirect()->to('daftartransaksi');
+    }
+
+    public function daftartransaksi()
+    {
+
+        // dd($daftar);
+        return view('frontend.daftartransaksi', [
+            'daftar' => Order::join('products', 'products.id', '=', 'orders.product_id')
+                ->where('user_id', auth()->id())
+                ->get(['products.nama', 'orders.*']),
+        ]);
+    }
+
+    public function selesai(Request $request)
+    {
+        $order = Order::where('id', $request->id)->first();
+        $order->update([
+            'status' => 1
+        ]);
+        return redirect()->back();
     }
 }

@@ -1,4 +1,9 @@
 <x-app-layout>
+    <div class="header flex rounded-md  bg-white m-auto w-[38%]">
+        <div class="p-5">
+            <a href="{{route('daftartransaksi')}}" class="bg-blue-500 text-white p-2 rounded-sm">Daftar Transaksi</a>
+        </div>
+    </div>
     <div class="my-5">
         <div class="md:max-w-xl w-full pt-3 bg-white rounded-md mx-auto">
             <h1 class="text-center font-semibold text-lg">Keranjang</h1>
@@ -27,6 +32,7 @@
                                 @csrf
                                 <input type="text" value="{{$cart->id}}" hidden name="product_id">
                                 <input type="text" value="{{$cart->quntity}}" hidden name="quntity">
+                                <input type="hidden" value="{{$cart->cartid}}" name="cartid">
                                 <button type="submit"><ion-icon name="bag-check-outline" class="bg-blue-500 hover:bg-blue-800 text-white p-1 rounded-md"></ion-icon></button>
                             </form>
                             <form onsubmit="return confirm('Apakah Anda Yakin Ingin Hapus?');" action="{{ route('carts.destroy', $cart->cartid) }}" method="POST">

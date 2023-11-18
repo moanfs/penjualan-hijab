@@ -24,22 +24,12 @@
                     </li>
                 </ol>
                 <div class="bg-blue-600 text-white p-1 rounded-lg hover:bg-blue-800">
-                    <a href="{{route('brand.create')}}">Download</a>
+                    <a href="{{route('download-pesanan')}}">Download</a>
                 </div>
             </nav>
 
             <div class="relative bg-white p-4 overflow-x-auto shadow-md sm:rounded-lg">
-                <div class="flex items-center justify-end pb-4">
-                    <label for="table-search" class="sr-only">Search</label>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                            <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
-                            </svg>
-                        </div>
-                        <input type="text" id="table-search" class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for items">
-                    </div>
-                </div>
+
                 @if (session()->has('success'))
                 <span class="text-white bg-green-500 flex text-center rounded-sm p-1 ">
                     {{session('success')}}
@@ -49,10 +39,19 @@
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th scope="col" class="px-6 py-3">
-                                Nama Prduk
+                                Nama Pembeli
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Logo Brand
+                                Nama Produk
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Harga
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Jumalh Pesanan
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Status
                             </th>
                             <th scope="col" class="px-6 py-3">
                                 Aksi
@@ -63,6 +62,9 @@
                         @forelse ($orders as $order)
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{$order->name}}
+                            </th>
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{$order->nama}}
                             </th>
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -71,10 +73,25 @@
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{$order->dibeli}}
                             </th>
-                            <td class="px-6 py-4">
-                                <a href="{{route('brand.show', $order->id)}}" class="font-medium text-white bg-green-500 p-2 rounded-lg hover:bg-green-800">Show</a>
-                                <a href="{{route('brand.edit', $order->id)}}" class="font-medium text-white bg-blue-500 p-2 rounded-lg  hover:bg-blue-800">Edit</a>
-                            </td>
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                @if ($order->statusorder == 2)
+                                <h1>Pesanan Selesai</h1>
+                                @elseif ($order->statusorder == 1)
+                                <h1>Pesanan Belum Dinilai</h1>
+                                @else
+                                <h1>Pesanan Belum Dibayar</h1>
+                                @endif
+                            </th>
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <form action="{{route('admin/order/lihat')}}" method="post">
+                                    <!-- @method('PUT') -->
+                                    @csrf
+                                    <input type="hidden" name="userid" value="{{$order->iduser}}">
+                                    <input type="hidden" name="produkid" value="{{$order->id}}">
+                                    <input type="hidden" name="orderid" value="{{$order->idorder}}">
+                                    <button type="submit" class="text-blue-500 hover:underline">Lihat</button>
+                                </form>
+                            </th>
                         </tr>
                         @empty
                         <div class="bg-rose-500 rounded-sm py-1 text-white text-center">

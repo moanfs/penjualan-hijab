@@ -19,7 +19,7 @@
                             <svg class="w-3 h-3 mx-1 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
                             </svg>
-                            <a href="{{route('brand.index')}}" class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">Brands</a>
+                            <a href="{{route('brand.index')}}" class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">Merek</a>
                         </div>
                     </li>
                     <li aria-current="page">
@@ -27,7 +27,7 @@
                             <svg class="w-3 h-3 mx-1 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
                             </svg>
-                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Form Product</span>
+                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Form Merek</span>
                         </div>
                     </li>
                 </ol>
@@ -37,7 +37,7 @@
                 <form action="{{ route('brand.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div>
-                        <label for="nama" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Brand <span class="text-rose-500">*</span></label>
+                        <label for="nama" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Merek <span class="text-rose-500">*</span></label>
                         <input type="text" name="title" id="nama" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Hijab Mutiara">
                         @error('title')
                         <span class="text-rose-500">
@@ -46,7 +46,7 @@
                         @enderror
                     </div>
                     <div>
-                        <label for="logo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Logo <span class="text-rose-500">*</span></label>
+                        <label for="logo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Logo Merek <span class="text-rose-500">*</span></label>
                         <input type="file" id="logo" name="logo" aria-describedby="helper-text-explanation" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
                         <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">Gambar hanya bisa PNG, JPG, JPEG dengan ukuran maksimal 2MB</div>
                         @error('logo')

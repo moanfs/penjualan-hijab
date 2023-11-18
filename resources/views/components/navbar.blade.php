@@ -1,4 +1,4 @@
-<header class="bg-white d-flex sticky top-0 w-full shadow-sm">
+<header class="bg-white d-flex z-50 sticky top-0 w-full shadow-sm">
     <div class="bg-[#e0e0e0]">
         <ul class="flex justify-end gap-[3rem] text-[0.5rem] md:text-[1rem] mx-5 text-gray-500">
             <li><a href="#">Tentang Kami</a></li>

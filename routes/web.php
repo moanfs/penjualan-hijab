@@ -33,7 +33,13 @@ Route::middleware(['auth:sanctum', 'role:user', config('jetstream.auth_session')
     // Route::resource('profile', App\Http\Controllers\ProfileController::class);
     Route::resource('orders', App\Http\Controllers\OrderController::class);
     Route::post('checkout', [App\Http\Controllers\PaymentController::class, 'checkout'])->name('checkout');
-    // Route::post('checkout', [App\Http\Controllers\PaymentController::class, 'checkout'])->name('checkout');
+    Route::post('cekongkir', [App\Http\Controllers\PaymentController::class, 'cekongkir'])->name('cekongkir');
+    Route::get('daftartransaksi', [App\Http\Controllers\PaymentController::class, 'daftartransaksi'])->name('daftartransaksi');
+    Route::post('pesan', [App\Http\Controllers\PaymentController::class, 'pesan'])->name('pesan');
+    Route::post('selesai', [App\Http\Controllers\PaymentController::class, 'selesai'])->name('selesai');
+    Route::resource('transaksi', App\Http\Controllers\TransaksiController::class);
+    Route::post('penilaian', [App\Http\Controllers\RatingController::class, 'penilaian'])->name('penilaian');
+    Route::post('penilaian-kirim', [App\Http\Controllers\RatingController::class, 'kirim'])->name('penilaian-kirim');
 });
 
 /**
@@ -45,11 +51,15 @@ Route::middleware(['auth:sanctum', 'role:admin', config('jetstream.auth_session'
     Route::resource('admin/brand', App\Http\Controllers\admin\BrandController::class);
     Route::resource('admin/users', App\Http\Controllers\admin\UserController::class);
     Route::resource('admin/saleing', App\Http\Controllers\admin\SaleingController::class);
-    Route::resource('admin/order', App\Http\Controllers\admin\OrderController::class);
+    Route::resource('admin/order', App\Http\Controllers\admin\OrderController::class)->only('index');
+    Route::post('admin/order/lihat', [App\Http\Controllers\admin\OrderController::class, 'show'])->name('admin/order/lihat');
     Route::resource('admin/shipping', App\Http\Controllers\admin\ShippingController::class);
     Route::resource('admin/admin-profile', App\Http\Controllers\admin\ProfileController::class)->only(['index', 'edit', 'update']);
     Route::resource('admin', App\Http\Controllers\admin\DashboardController::class)->only(['index']);
     Route::get('admin/download-produk', [App\Http\Controllers\admin\DownloadController::class, 'produk'])->name('download-produk');
+    Route::get('admin/download-pesanan', [App\Http\Controllers\admin\DownloadController::class, 'pesanan'])->name('download-pesanan');
+    Route::get('admin/download-users', [App\Http\Controllers\admin\DownloadController::class, 'users'])->name('download-users');
+    Route::get('admin/download-penjualan', [App\Http\Controllers\admin\DownloadController::class, 'penjualan'])->name('download-penjualan');
 });
 
 // Route::middleware([

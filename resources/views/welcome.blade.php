@@ -33,13 +33,23 @@
                         @endforeach
                     </div>
                     <div class="px-4 py-2 capitalize ">
-                        @if ($baru->dis_status == 1)
-                        <h1 class="text-rose-500 line-through">RP. {{$baru->price}}</h1>
-                        <h1 class="">Rp. {{$baru->price - $baru->discount}}</h1>
-                        @else
-                        <h1>RP. {{$baru->price}}</h1>
-                        @endif
-                        <h class="text-xl font-medium text-gray-900 line-clamp-1">{{$baru->nama}}</h>
+                        <div class="flex justify-between">
+                            <div>
+                                @if ($baru->dis_status == 1)
+                                <h1 class="text-rose-500 line-through">RP. {{$baru->price}}</h1>
+                                <h1 class="">Rp. {{$baru->price - $baru->discount}}</h1>
+                                @else
+                                <h1>RP. {{$baru->price}}</h1>
+                                @endif
+                            </div>
+                            <div class="text-end">
+                                <span class="text-xs">jumlah produk</span>
+                                <h1 class="">{{$baru->amount}}</h1>
+                            </div>
+                        </div>
+                        <div>
+                            <h class="text-xl font-medium text-gray-900 line-clamp-1">{{$baru->nama}}</h>
+                        </div>
                     </div>
                 </div>
             </a>
@@ -65,12 +75,20 @@
                     @endif
                     @endforeach
                     <div class="px-4 py-2 capitalize ">
-                        @if ($post->dis_status == 1)
-                        <h1 class="text-rose-500 line-through">RP. {{$post->price}}</h1>
-                        <h1 class="">Rp. {{$post->price - $post->discount}}</h1>
-                        @else
-                        <h1>RP. {{$post->price}}</h1>
-                        @endif
+                        <div class="flex justify-between">
+                            <div>
+                                @if ($post->dis_status == 1)
+                                <h1 class="text-rose-500 line-through">RP. {{$post->price}}</h1>
+                                <h1 class="">Rp. {{$post->price - $post->discount}}</h1>
+                                @else
+                                <h1>RP. {{$post->price}}</h1>
+                                @endif
+                            </div>
+                            <div class="text-end">
+                                <span class="text-xs">jumlah produk</span>
+                                <h1 class="">{{$post->amount}}</h1>
+                            </div>
+                        </div>
                         <h class="text-xl font-medium text-gray-900 line-clamp-1">{{$post->nama}}</h>
                     </div>
                 </div>

@@ -89,6 +89,20 @@
                 </div>
             </div>
         </div>
+        <div class="m-5">
+            <div>
+                <p class="text-2xl">Ulasan Produk :</p>
+                @forelse ($ratings as $rating )
+                <div class="border rounded-md my-2">
+                    <h1>Nama Pelanggan : {{$rating->name}}</h1>
+                    <h1>Nilai : {{$rating->nilai}}</h1>
+                    <h1>Ulasan : {{$rating->desc}}</h1>
+                </div>
+                @empty
+                <h1>Produk Belum Ada Penilaian</h1>
+                @endforelse
+            </div>
+        </div>
 
     </div>
 
