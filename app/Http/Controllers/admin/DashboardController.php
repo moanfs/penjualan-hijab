@@ -15,7 +15,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $jumlahuser =  User::all()->count();
+        $jumlahuser =  User::whereNot('role', 'admin')->get()->count();
 
 
         // $labels = $users->keys();

@@ -13,7 +13,7 @@ class SaleingController extends Controller
         return view('admin.sales', [
             'sales' => Order::join('products', 'products.id', '=', 'orders.product_id')
                 ->join('users', 'users.id', '=', 'orders.user_id')
-                ->where('orders.status', 2)
+                ->where('orders.status_pay', 'Paid')
                 ->get(['products.*', 'users.name', 'orders.amount as dibeli', 'orders.totalselurh as totalseluruh', 'orders.status as statusorder', 'orders.id as orderid'])
         ]);
     }
@@ -24,7 +24,7 @@ class SaleingController extends Controller
         return view('admin.sales-show', [
             'sales' => Order::join('products', 'products.id', '=', 'orders.product_id')
                 ->join('users', 'users.id', '=', 'orders.user_id')
-                ->where('orders.status', 2)
+                ->where('orders.status_pay', 'Paid')
                 ->where('orders.id', $sale)
                 ->get(['products.*', 'users.name', 'orders.amount as dibeli', 'orders.id as orderid'])->first()
         ]);
