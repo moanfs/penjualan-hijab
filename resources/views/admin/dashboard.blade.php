@@ -37,14 +37,14 @@
                     </p>
                 </div>
                 <div class="flex-row p-2 items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-400 dark:text-gray-500">
+                    <p class=" text-gray-400 dark:text-gray-500">
                         <span class="flex text-center text-2xl">Jumlah Order</span>
                         <span>Belum Selesai</span>
                     <h1 class="text-4xl text-center">{{$belumselesai}}</h1>
                     </p>
                 </div>
                 <div class="flex-row p-2 items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-400 dark:text-gray-500">
+                    <p class=" text-gray-400 dark:text-gray-500">
                         <span class="flex text-center text-2xl">Jumlah Order</span>
                         <span>Belum Di Nilai</span>
                     <h1 class="text-4xl text-center">{{$belumdiniali}}</h1>
