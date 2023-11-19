@@ -28,7 +28,7 @@ Route::get('brands', [App\Http\Controllers\ProductController::class, 'brands'])-
 // });
 
 // wajib login
-Route::middleware(['auth:sanctum', 'role:user', 'check_user_status', config('jetstream.auth_session'), 'verified'])->group(function () {
+Route::middleware(['auth:sanctum', 'role:user', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::resource('carts', App\Http\Controllers\CartController::class);
     // Route::resource('profile', App\Http\Controllers\ProfileController::class);
     Route::resource('orders', App\Http\Controllers\OrderController::class);
