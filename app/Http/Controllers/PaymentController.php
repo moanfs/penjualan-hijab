@@ -16,14 +16,14 @@ use Kavist\RajaOngkir\RajaOngkir;
 
 class PaymentController extends Controller
 {
-    private $apiKey = '9f4cbb907415618801c626dd68723d41';
+    // private $apiKey = '9f4cbb907415618801c626dd68723d41';
 
     // untuk cek ongkos kirim
     public function cekongkir(Request $request)
     {
         // dd($cartid);
-        $rajaOngkir = new RajaOngkir($this->apiKey);
-        dd($rajaOngkir);
+        $rajaOngkir = new RajaOngkir(env('RAJAONGKIR_API_KEY'));
+        // dd($rajaOngkir);
         $daftarProvinsi = $rajaOngkir->ongkosKirim([
             'origin'        => 155,     // ID kota/kabupaten asal
             'destination'   => $request->destination,      // ID kota/kabupaten tujuan

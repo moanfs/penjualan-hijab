@@ -13,11 +13,10 @@ use Kavist\RajaOngkir\RajaOngkir;
 
 class OrderController extends Controller
 {
-    private $apiKey = '9f4cbb907415618801c626dd68723d41';
 
     public function store(Request $request)
     {
-        $rajaOngkir = new RajaOngkir($this->apiKey);
+        $rajaOngkir = new RajaOngkir(env('RAJAONGKIR_API_KEY'));
 
         // dd($response->json());
         $id_produk = $request->product_id;
