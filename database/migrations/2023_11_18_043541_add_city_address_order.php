@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::table('orders', function (Blueprint $table) {
             $table->string('city')
-                ->after('resi');
+                ->after('resi')->nullable();
             $table->string('address')
-                ->after('city');
+                ->after('city')->nullable();
         });
     }
 

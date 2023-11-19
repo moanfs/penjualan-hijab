@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('city')->nullable();
             $table->string('zip_code')->nullable();
-            $table->boolean('role')->default(1);
             $table->boolean('status')->default(0);
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();

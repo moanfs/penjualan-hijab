@@ -39,22 +39,7 @@
 
     @livewireScripts
 
-    <script>
-        $('#hidden_fields').css('display', 'none'); // Hide the text input box in default
-        function myFunction() {
-            if ($('#trigger').prop('checked')) {
-                $('#hidden_fields').css('display', 'block');
-            } else {
-                $('#hidden_fields').css('display', 'none');
-            }
-        }
-        var DataTable = require('datatables.net');
-        require('datatables.net-responsive');
 
-        let table = new DataTable('#myTable', {
-            responsive: true
-        });
-    </script>
 </body>
 
 </html>

@@ -109,10 +109,12 @@ class ProductController extends Controller
             ->where('images.product_id', $id)
             ->get('images.*');
         // dd($gambar);
-        foreach ($gambar as $key => $gam) {
-            $gamm[$key] = [$gam->img];
-            dd($gamm);
-        }
+
+        // dd($imgaes);
+        // foreach ($gambar as $key => $gam) {
+        //     $gamm[$key] = [$gam->img];
+        //     dd($gamm);
+        // }
         if (!$request->hasFile('images')) {
             // validate form
             $request->validate([
@@ -160,7 +162,7 @@ class ProductController extends Controller
                 'dis_status' => $request->dis_status
             ]);
             // $id = $product->id;
-
+            Image::where('product_id', $id)->delete();
             // Storage::delete('public/products/' . $product->img);
             // upload image
             // if ($request->hasFile('images')) {
@@ -170,7 +172,10 @@ class ProductController extends Controller
                 $insert[$key]['img'] = $file->hashName();
                 // }
             }
-            $gambar->update($insert);
+
+
+            //updaload
+            Image::insert($insert);
         }
 
         return redirect()->route('products.index')->with(['success' => 'Produk baru berhasil di edit']);

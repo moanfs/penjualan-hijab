@@ -64,7 +64,7 @@
         </div>
     </div>
     <div class="w-[80%] mx-auto pb-10 bg-white">
-        <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5">
+        <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
             @forelse ($produk as $post)
             <a href="{{route('hijab.show', $post->slug)}}">
                 <div class="mx-auto my-5 bg-white rounded-lg md:w-[12rem] xl:w-[15rem] h-full border-2 w-[9rem] shadow-md  dark:bg-gray-800">
