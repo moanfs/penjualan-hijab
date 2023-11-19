@@ -23,6 +23,7 @@ class PaymentController extends Controller
     {
         // dd($cartid);
         $rajaOngkir = new RajaOngkir($this->apiKey);
+        dd($rajaOngkir);
         $daftarProvinsi = $rajaOngkir->ongkosKirim([
             'origin'        => 155,     // ID kota/kabupaten asal
             'destination'   => $request->destination,      // ID kota/kabupaten tujuan

@@ -15,13 +15,10 @@ class DashboardController extends Controller
     public function index()
     {
         $jumlahuser =  User::all()->count();
-        $users = User::select(DB::raw("COUNT(*) as count"), DB::raw("MONTHNAME(created_at) as month_name"))
-            ->whereYear('created_at', date('Y'))
-            ->groupBy(DB::raw("Month(created_at)"))
-            ->pluck('count', 'month_name');
 
-        $labels = $users->keys();
-        $data = $users->values();
+
+        // $labels = $users->keys();
+        // $data = $users->values();
         // dd($jumlahuser);
         return view('admin.dashboard', [
             'userlogin' => User::where('id', auth()->id())->first(),
@@ -29,6 +26,7 @@ class DashboardController extends Controller
             'jumlahproduk'  => Product::all()->count(),
             'jumlahkategori' => Category::all()->count(),
             'jumlahbrand'   => Brand::all()->count(),
+            // 'labels', 'data'
         ]);
     }
 }
