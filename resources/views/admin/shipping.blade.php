@@ -72,9 +72,9 @@
                             </th>
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 @if ($post->status == 3)
-                                <h1>Barang Diterima</h1>
+                                <h1>Selesai</h1>
                                 @else
-                                <h1>Barang Belum Diterima</h1>
+                                <h1>Belum Selesai</h1>
                                 @endif
                             </th>
 
