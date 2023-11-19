@@ -48,17 +48,7 @@
                     <label for="title" class="block my-2 text-sm font-medium text-gray-900 dark:text-white">Kota User :</label>
                     <input type="text" name="title" id="title" value="{{$user->city}}" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 " disabled>
                 </div>
-                <form action="{{ route('users.update', $user->id) }}" onsubmit="return confirm('Apakah Anda Yakin Ingin?');" method="POST">
-                    @csrf
-                    @method('PUT')
-                    @if ($user->status == 0)
-                    <input type="text" name="status" id="" value="1" hidden>
-                    <button type="submit" class="text-white bg-rose-700 my-5 hover:bg-rose-800  font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Disable User</button>
-                    @else
-                    <input type="text" name="status" id="" value="0" hidden>
-                    <button type="submit" class="text-white bg-blue-700 my-5 hover:bg-blue-800  font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Aktifkan User</button>
-                    @endif
-                </form>
+
             </div>
         </div>
     </div>

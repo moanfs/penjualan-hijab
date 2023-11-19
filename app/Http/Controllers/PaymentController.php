@@ -65,7 +65,8 @@ class PaymentController extends Controller
             'user_id'    => auth()->id(),
             'amount'    => $request->amount,
             'city'      => $request->destination,
-            'address' => $request->address
+            'address' => $request->address,
+
         ]);
 
         $idorder = $order->id;
@@ -97,33 +98,9 @@ class PaymentController extends Controller
 
         $order->update([
             'nama_jasa' => $request->namajasa,
-            'totalselurh' => $totalsamaongkir
+            'totalselurh' => $totalsamaongkir,
+            // 'status'    => 1
         ]);
-
-        // $pesanan = Product::where('id', $request->produk)->first();
-
-
-        // // Set your Merchant Server Key
-        // \Midtrans\Config::$serverKey = config('midtrans.server_key');
-        // // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
-        // \Midtrans\Config::$isProduction = false;
-        // // Set sanitization on (default)
-        // \Midtrans\Config::$isSanitized = true;
-        // // Set 3DS transaction for credit card to true
-        // \Midtrans\Config::$is3ds = true;
-
-        // $params = array(
-        //     'transaction_details' => array(
-        //         'order_id' => $order->id,
-        //         'gross_amount' => $totalsamaongkir,
-        //     ),
-        //     'customer_details' => array(
-        //         'name' => $user->name,
-        //         'email' => $user->email,
-        //     ),
-        // );
-        // $snapToken = \Midtrans\Snap::getSnapToken($params);
-
 
         return view('frontend.checkout', compact('produk', 'user', 'totalsamaongkir', 'harga', 'jumlahdibeli', 'biayaongkir'));
     }
@@ -134,20 +111,25 @@ class PaymentController extends Controller
         $updateProduk = Product::where('id', $request->idproduk)->first();
         $dibeli = Order::where('id', $request->idorder)->first();
 
-        if ($dibeli->totalselurh != $request->pembayaran) {
-            return redirect()->back()->with('gagal', 'pembayaran harus sama dengan total pembayaran');
-        } else {
-            $dibeli->update([
-                'resi' => rand(),
-                'status_pay' => 'Paid'
-            ]);
+        $karakter = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789';
+        $shuffle  = substr(str_shuffle($karakter), 0, 16);
+        $kode_pay = rand();
+        $dibeli->update([
+            'resi' => $shuffle,
+            'status_pay' => 'Unpaid',
+            'nama_bank' => $request->nama_bank,
+            'kode_pay'  => $kode_pay,
+            'status'    => 1
+        ]);
 
-            $updateProduk->update([
-                'amount' => $updateProduk->amount -= $dibeli->amount
-            ]);
-        }
+        $updateProduk->update([
+            'amount' => $updateProduk->amount -= $dibeli->amount
+        ]);
 
-        return redirect()->to('daftartransaksi');
+        return view('frontend.kodepembayaran', [
+            'kodepay' => $kode_pay,
+            'nama_bank' => $request->nama_bank
+        ]);
     }
 
     public function daftartransaksi()
@@ -164,9 +146,19 @@ class PaymentController extends Controller
     public function selesai(Request $request)
     {
         $order = Order::where('id', $request->id)->first();
-        $order->update([
-            'status' => 1
+
+        $this->validate($request, [
+            'bukti'     => 'required|image|mimes:jpeg,jpg,png|max:2048',
         ]);
-        return redirect()->back();
+
+        $bukti = $request->file('bukti');
+        $bukti->storeAs('public/bukti', $bukti->hashName());
+
+        $order->update([
+            'status' => 2,
+            'status_pay' => 'Paid',
+            'bukti' => $bukti->hashName()
+        ]);
+        return redirect()->back()->with('success', 'pesanan telah selesai, mohon beri penilaian');
     }
 }

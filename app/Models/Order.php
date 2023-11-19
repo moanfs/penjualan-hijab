@@ -24,5 +24,8 @@ class Order extends Model
         'address',
         'resi',
         'status',
+        'nama_bank',
+        'kode_pay',
+        'bukti',
     ];
 }

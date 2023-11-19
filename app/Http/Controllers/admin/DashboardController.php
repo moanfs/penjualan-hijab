@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -26,6 +27,9 @@ class DashboardController extends Controller
             'jumlahproduk'  => Product::all()->count(),
             'jumlahkategori' => Category::all()->count(),
             'jumlahbrand'   => Brand::all()->count(),
+            'selesai'   => Order::where('status', 3)->get()->count(),
+            'belumselesai'   => Order::where('status', 1)->get()->count(),
+            'belumdiniali'   => Order::where('status', 2)->get()->count(),
             // 'labels', 'data'
         ]);
     }

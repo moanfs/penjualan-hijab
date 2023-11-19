@@ -131,7 +131,7 @@
         </div>
     </div>
     <div class="bg-white w-[30%] mt-5 p-2 rounded-md mx-auto">
-        @if ($order->status == 1)
+        @if ($order->status == 2)
         <form action="{{route('penilaian-kirim')}}" method="post">
             @csrf
             <input type="hidden" name="id" id="" value="{{$order->produkid}}">

@@ -57,49 +57,48 @@
         <form action="{{route('pesan')}}" method="POST">
             @csrf
             <div class="relative z-0 w-full mb-6 group">
-                <input type="hidden" id="hargabayar" value="{{$totalsamaongkir}}">
-                <input type="text" name="pembayaran" id="pembayaran" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" value="{{old('pembayaran')}}" required />
-                <label for="pembayaran" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Masukan nominal pembayaran</label>
-                <span>pastikan nomimal pembayaran sama dengan total pembayaran</span>
-                @if (session()->has('gagal'))
-                <span class="text-rose-500 ">
-                    {{session('gagal')}}
-                </span>
-                @endif
+                <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Metode Pembayaran</label>
+                <select id="countries" name="nama_bank" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                    <option disabled>Pilih Metode Pembayaran</option>
+                    <option value="mandiri">Mandiri</option>
+                    <option value="dana">Dana</option>
+                    <option value="bca">BCA</option>
+                    <option value="bri">BRI</option>
+                </select>
             </div>
             <input type="hidden" name="idproduk" value="{{$produk->id}}">
             <input type="hidden" name="idorder" value="{{$jumlahdibeli->id}}">
-            <button type="submit" id="submitBtn" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" disabled>Bayar</button>
+            <button type="submit" id="submitBtn" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Bayar</button>
         </form>
 
     </div>
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script type="text/javascript">
-        document.addEventListener('DOMContentLoaded', function() {
-            const hargaInput = document.getElementById('hargabayar');
-            const pembayaranInput = document.getElementById('pembayaran');
-            const submitBtn = document.getElementById('submitBtn');
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     const hargaInput = document.getElementById('hargabayar');
+        //     const pembayaranInput = document.getElementById('pembayaran');
+        //     const submitBtn = document.getElementById('submitBtn');
 
-            hargaInput.addEventListener('input', function() {
-                updateSubmitButton();
-            });
+        //     hargaInput.addEventListener('input', function() {
+        //         updateSubmitButton();
+        //     });
 
-            pembayaranInput.addEventListener('input', function() {
-                updateSubmitButton();
-            });
+        //     pembayaranInput.addEventListener('input', function() {
+        //         updateSubmitButton();
+        //     });
 
-            function updateSubmitButton() {
-                const harga = hargaInput.value;
-                const pembayaran = pembayaranInput.value;
+        //     function updateSubmitButton() {
+        //         const harga = hargaInput.value;
+        //         const pembayaran = pembayaranInput.value;
 
-                if (harga === pembayaran) {
-                    submitBtn.removeAttribute('disabled');
-                } else {
-                    submitBtn.setAttribute('disabled', 'disabled');
-                }
-            }
-        });
+        //         if (harga === pembayaran) {
+        //             submitBtn.removeAttribute('disabled');
+        //         } else {
+        //             submitBtn.setAttribute('disabled', 'disabled');
+        //         }
+        //     }
+        // });
     </script>
 </body>
 

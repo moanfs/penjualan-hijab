@@ -53,9 +53,6 @@
                                 Tanggal Bergabung
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Status
-                            </th>
-                            <th scope="col" class="px-6 py-3">
                                 Aksi
                             </th>
                         </tr>
@@ -72,14 +69,6 @@
                             </td>
                             <td class="px-6 py-4">
                                 {{$user->created_at}}
-                            </td>
-                            <td class="px-6 py-4">
-                                @if ($user->status == 0)
-                                <span>Aktif</span>
-                                @else
-                                <span>Non Aktif</span>
-                                @endif
-
                             </td>
                             <td class="px-6 py-4">
                                 <a href="{{route('users.edit', $user->id)}}" class="font-medium text-white bg-green-500 p-2 rounded-lg hover:bg-green-800">Show</a>

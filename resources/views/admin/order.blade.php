@@ -74,9 +74,9 @@
                                 {{$order->dibeli}}
                             </th>
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                @if ($order->statusorder == 2)
+                                @if ($order->statusorder == 3)
                                 <h1>Pesanan Selesai</h1>
-                                @elseif ($order->statusorder == 1)
+                                @elseif ($order->statusorder == 2)
                                 <h1>Pesanan Belum Dinilai</h1>
                                 @else
                                 <h1>Pesanan Belum Dibayar</h1>

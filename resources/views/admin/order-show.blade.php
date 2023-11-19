@@ -53,37 +53,37 @@
 
                 <div class="flex gap-3">
                     <p>Nama Produk : </p>
-                    @if ($produk->statusorder == 2)
+                    @if ($produk->statusorder == 3)
                     <h1>Transaksi Selesai</h1>
-                    @elseif ($produk->statusorder == 1)
+                    @elseif ($produk->statusorder == 2)
                     <h1>Belum Dinilai</h1>
                     @else
                     <h1>Belum Dibayar</h1>
                     @endif
                 </div>
             </div>
-            @if ($rating)
-            <div class="bg-white rounded mx-auto p-4 mt-2">
-                <div>
-                    <h1>Penilaian Konsumen</h1>
+            <div class="bg-white mt-4 rounded mx-auto p-4">
+                <div class="flex gap-3">
+                    <h1 class="font-bold">Bukti Pembayaran</h1>
                 </div>
-                <div class="flex">
-                    <h1>Nama Konsumen : </h1>
-                    <p>{{$produk->name}}</p>
+                <div class="flex gap-3">
+                    <h1>Nama Bank</h1>
+                    <h1>{{$produk->nama_bank}}</h1>
                 </div>
-                <div class="flex">
-                    <h1>Nilai : </h1>
-                    <p>{{$rating->nilai}}</p>
+                <div class="flex gap-3">
+                    <h1>Kode Pembayaran</h1>
+                    <h1>{{$produk->kode_pay}}</h1>
                 </div>
-                <div class="flex">
-                    <h1>Ulasan : </h1>
-                    <p>{{$rating->desc}}</p>
+                @if ($produk->status_pay == 'Paid')
+                <div class="">
+                    <h1>Bukti Pembayaran : </h1>
+                    <img src="{{ asset('/storage/bukti/'.$produk->bukti) }}" class="h-auto w-96 rounded-sm" alt="">
                 </div>
-                <div></div>
+                @else
+                <h1>Belum DIbayar</h1>
+                @endif
+
             </div>
-            @else
-            <h1>Belum ada ulasan</h1>
-            @endif
         </div>
     </div>
 </x-admin-layout>

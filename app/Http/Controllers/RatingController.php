@@ -27,7 +27,7 @@ class RatingController extends Controller
 
         $order = Order::where('id', $request->idorder)->first();
         $order->update([
-            'status' => 2
+            'status' => 3
         ]);
         return redirect()->to('daftartransaksi');
     }
