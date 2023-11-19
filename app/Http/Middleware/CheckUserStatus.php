@@ -18,7 +18,7 @@ class CheckUserStatus
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::check() && Auth::user()->status == 0) {
-            Auth::logout();
+            // Auth::logout();
             return redirect('/login')->with('error', 'Akun Anda telah dinonaktifkan.');
         }
         return $next($request);
