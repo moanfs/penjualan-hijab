@@ -90,7 +90,7 @@ class DownloadController extends Controller
             $activeWorksheet->setCellValue('C' . $row, $produk->namaproduk);
             $activeWorksheet->setCellValue('D' . $row, $produk->amount);
             $activeWorksheet->setCellValue('E' . $row, $produk->nama_jasa);
-            $activeWorksheet->setCellValue('F' . $row, $produk->status_pay);
+            $activeWorksheet->setCellValue('F' . $row, $produk->updated_at);
             $activeWorksheet->setCellValue('G' . $row, $produk->totalselurh - $produk->ongkir);
             $row++;
         }
