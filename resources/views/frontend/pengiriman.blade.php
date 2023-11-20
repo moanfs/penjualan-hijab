@@ -36,7 +36,9 @@
             </div>
             <div>
                 @if ($pengiriman->diterima == 100)
-                <h1>Selesai</h1>
+                <h1 class="mt-4 text-lg">Selesai</h1>
+                @elseif ($pengiriman->diterima == 1)
+                <h1 class="mt-4 text-lg">Dikemas</h1>
                 @else
                 <form action="{{route('pengiriman.update', $pengiriman->id)}}" method="post">
                     @csrf

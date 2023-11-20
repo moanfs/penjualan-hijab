@@ -51,6 +51,29 @@
                     </p>
                 </div>
             </div>
+            <div class="grid grid-cols-3 gap-4 mb-4">
+                <div class="flex-row p-2 items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
+                    <p class=" text-gray-400 dark:text-gray-500">
+                        <span class="flex text-center text-2xl">Pesanan</span>
+                        <span>Dikemas/belum dikirim</span>
+                    <h1 class="text-4xl text-center">{{$dikemas}}</h1>
+                    </p>
+                </div>
+                <div class="flex-row p-2 items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
+                    <p class=" text-gray-400 dark:text-gray-500">
+                        <span class="flex text-center text-2xl">Pesanan</span>
+                        <span>Dikirim</span>
+                    <h1 class="text-4xl text-center">{{$dikirim}}</h1>
+                    </p>
+                </div>
+                <div class="flex-row p-2 items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
+                    <p class=" text-gray-400 dark:text-gray-500">
+                        <span class="flex text-center text-2xl">Pesanan</span>
+                        <span>Diterima</span>
+                    <h1 class="text-4xl text-center">{{$diterima}}</h1>
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 

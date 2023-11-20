@@ -30,6 +30,9 @@ class DashboardController extends Controller
             'selesai'   => Order::where('status', 3)->get()->count(),
             'belumselesai'   => Order::where('status', 1)->get()->count(),
             'belumdiniali'   => Order::where('status', 2)->get()->count(),
+            'dikirim'   => Order::where('diterima', 50)->get()->count(),
+            'dikemas'   => Order::where('diterima', 1)->get()->count(),
+            'diterima'   => Order::where('diterima', 100)->get()->count(),
             // 'labels', 'data'
         ]);
     }

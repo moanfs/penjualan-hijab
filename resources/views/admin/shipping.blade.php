@@ -72,13 +72,17 @@
                             </th>
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 @if ($post->diterima == 100)
-                                <h1>Diterima</h1>
-                                @else($post->diterima == 50)
+                                <h1>Barang Diterima</h1>
+                                @elseif($post->diterima == 50)
                                 <h1>Dalam Perjalanan</h1>
+                                @else
+                                <form action="{{route('shipping.update', $post->id)}}" onsubmit="return confirm('Apakah Orderan sudah benar?');" method="post">
+                                    @csrf
+                                    @method('PUT')
+                                    <button type="submit" class="text-blue-500">Belum Dikirm</button>
+                                </form>
                                 @endif
-
                             </th>
-
                         </tr>
                         @empty
                         <div class="bg-rose-500 rounded-sm py-1 text-white text-center">

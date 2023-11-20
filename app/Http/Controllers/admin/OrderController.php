@@ -43,7 +43,7 @@ class OrderController extends Controller
         $order->update([
             'konfimasiadmin' => $request->konfimasi,
             'pesan'         => $request->pesan,
-            'diterima'      => 50
+            'diterima'      => 1
         ]);
         return redirect()->back();
     }
