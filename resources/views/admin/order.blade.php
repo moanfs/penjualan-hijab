@@ -74,23 +74,26 @@
                                 {{$order->dibeli}}
                             </th>
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                @if ($order->statusorder == 3)
-                                <h1>Pesanan Selesai</h1>
-                                @elseif ($order->statusorder == 2)
-                                <h1>Pesanan Belum Dinilai</h1>
+                                @if ($order->status_pay == 'Paid')
+
+                                @if ($order->konfimasiadmin == 'valid')
+                                <h1>Pembayaran dikonfrimasi</h1>
+                                @elseif ($order->konfimasiadmin == 'invalid')
+                                <h1>Pembayaran ditolak</h1>
+                                @elseif ($order->konfimasiadmin == 'ulang')
+                                <h1>menunggu konfrimasi ulang</h1>
                                 @else
-                                <h1>Pesanan Belum Dibayar</h1>
+                                <h1>Menunggu Konfirmai Admin</h1>
                                 @endif
+
+                                @else
+                                <h1>Belum Bayar</h1>
+                                @endif
+
+
                             </th>
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                <form action="{{route('admin/order/lihat')}}" method="post">
-                                    <!-- @method('PUT') -->
-                                    @csrf
-                                    <input type="hidden" name="userid" value="{{$order->iduser}}">
-                                    <input type="hidden" name="produkid" value="{{$order->id}}">
-                                    <input type="hidden" name="orderid" value="{{$order->idorder}}">
-                                    <button type="submit" class="text-blue-500 hover:underline">Lihat</button>
-                                </form>
+                                <a href="{{route('order.show', $order->idorder)}}" class="font-medium text-white bg-green-500 p-2 rounded-lg hover:bg-green-800">Show</a>
                             </th>
                         </tr>
                         @empty

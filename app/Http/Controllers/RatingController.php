@@ -10,7 +10,7 @@ class RatingController extends Controller
 {
     public function penilaian(Request $request)
     {
-
+        // dd($request->id);
         return view('frontend.rating', [
             'order' => Order::join('products', 'products.id', '=', 'orders.product_id')->where('orders.id', $request->id)->get(['products.nama', 'products.id as produkid', 'orders.*'])->first(),
         ]);

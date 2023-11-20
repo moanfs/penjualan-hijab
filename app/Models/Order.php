@@ -27,5 +27,11 @@ class Order extends Model
         'nama_bank',
         'kode_pay',
         'bukti',
+        'konfimasiadmin',
+        'pesan',
+        'etd',
+        'ongkir',
+        'diterima',
+        'kurir'
     ];
 }

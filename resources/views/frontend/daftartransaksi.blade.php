@@ -18,6 +18,7 @@
                     <th scope="col" class="px-6 py-3">
                         Status Pembayaran
                     </th>
+
                     <th scope="col" class="px-6 py-3">
                         Aksi
                     </th>
@@ -38,16 +39,24 @@
                     </th>
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         @if ($post->status_pay == 'Paid')
-                        <h1>Sudah Dibayar</h1>
+
+                        @if ($post->konfimasiadmin == 'valid')
+                        <h1>Pembayaran Dikonfimasi</h1>
+                        @elseif ($post->konfimasiadmin == 'invalid')
+                        <h1>Pembayaran Ditolak</h1>
+                        @elseif ($post->konfimasiadmin == 'ulang')
+                        <h1>Menunggu Konfirmasi Ulang</h1>
+                        @else
+                        <h1>Menunggu Konfirmasi</h1>
+                        @endif
+
                         @else
                         <h1>Belum Dibayar</h1>
                         @endif
                     </th>
+
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-
                         <a href="{{route('transaksi.show', $post->id)}}">Cek</a>
-
-
                     </th>
                 </tr>
                 @empty

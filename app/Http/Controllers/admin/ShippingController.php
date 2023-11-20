@@ -14,6 +14,7 @@ class ShippingController extends Controller
 
         return view('admin.shipping', [
             'pengiriman' => Order::join('users', 'users.id', '=', 'orders.user_id')
+                ->where('konfimasiadmin', 'valid')
                 ->get(['users.name', 'orders.*'])
         ]);
     }

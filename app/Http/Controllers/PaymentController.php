@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Veritrans\Veritrans;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 // use Kavist\RajaOngkir\Facades\RajaOngkir;
 use Kavist\RajaOngkir\RajaOngkir;
 
@@ -31,15 +32,21 @@ class PaymentController extends Controller
             'courier'       => $request->courier    // kode kurir pengiriman: ['jne', 'tiki', 'pos'] untuk starter
         ]);
         $produkid = $request->produk;
-        // dd($produkid);
-        // var_dump($daftarProvinsi);
+
         $result = $daftarProvinsi->get();
         // dd($result);
-
         // nama jasa
         $nama_jasa = $result[0]['name'];
         // dd($nama_jasa);
-
+        $service = $result[0]['costs'][0]['service'];
+        // dd($service);
+        foreach ($result[0]['costs'] as $jenis) {
+            $layanan[] = array(
+                $description = $jenis['description'],
+                $service = $jenis['service'],
+            );
+        }
+        // dd($layanan);
         foreach ($result[0]['costs'] as $row) {
             $hasil[] = array(
                 'destination' => $request->destination,
@@ -47,7 +54,7 @@ class PaymentController extends Controller
                 'etd'        => $row['cost'][0]['etd'],
             );
         }
-
+        // dd($hasil);
         //hapus cart jika produk dari cart
         if (!empty($request->cartid)) {
             $cart = Carts::where('id', $request->cartid);
@@ -71,7 +78,6 @@ class PaymentController extends Controller
 
         $idorder = $order->id;
         // dd($idorder);
-
         return view('frontend.cekogkir', compact('hasil', 'nama_jasa', 'idorder', 'produkid'));
     }
     public function checkout(Request $request)
@@ -99,6 +105,8 @@ class PaymentController extends Controller
         $order->update([
             'nama_jasa' => $request->namajasa,
             'totalselurh' => $totalsamaongkir,
+            'ongkir'    => $request->biayaongkir,
+            'etd'    => $request->estimasi
             // 'status'    => 1
         ]);
 
@@ -113,6 +121,11 @@ class PaymentController extends Controller
 
         $karakter = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789';
         $shuffle  = substr(str_shuffle($karakter), 0, 16);
+        if ($request->nama_bank == 'bca') {
+            $kode_pay = 4830495393;
+        } else {
+            $kode_pay = 1770006248352;
+        }
         $kode_pay = rand();
         $dibeli->update([
             'resi' => $shuffle,
@@ -159,6 +172,25 @@ class PaymentController extends Controller
             'status_pay' => 'Paid',
             'bukti' => $bukti->hashName()
         ]);
-        return redirect()->back()->with('success', 'pesanan telah selesai, mohon beri penilaian');
+        return redirect()->back()->with('success', 'Bukti Pembayaran Berhasil Diupload');
+    }
+
+    public function bayarulang(Request $request)
+    {
+        $order = Order::where('id', $request->id)->first();
+        $this->validate($request, [
+            'bukti'     => 'required|image|mimes:jpeg,jpg,png|max:2048',
+        ]);
+
+        $bukti = $request->file('bukti');
+        $bukti->storeAs('public/bukti', $bukti->hashName());
+
+        Storage::delete('public/bukti/' . $order->bukti);
+
+        $order->update([
+            'konfimasiadmin' => 'ulang',
+            'bukti' => $bukti->hashName()
+        ]);
+        return redirect()->back()->with('success', 'Bukti Pembayaran Berhasil Diupload');
     }
 }

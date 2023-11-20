@@ -48,35 +48,55 @@ class DownloadController extends Controller
 
         return $response;
     }
-    public function penjualan()
+    public function penjualan(Request $request)
     {
+
+        $request->validate([
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+        ]);
+
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+        // dd($startDate);
+
         $data = Order::join('products', 'products.id', '=', 'orders.product_id')
             ->join('users', 'users.id', '=', 'orders.user_id')
-            ->whereNot('orders.status', 0)
-            ->get(['users.name as username', 'orders.totalselurh', 'orders.nama_jasa', 'orders.status_pay', 'products.nama as namaproduk', 'orders.amount as jumlahpesan'])->all();
-        // dd($data);
+            ->where('orders.konfimasiadmin', 'valid')
+            ->whereBetween('orders.updated_at',  [$startDate, $endDate])
+            ->get(['users.name as username', 'orders.*', 'products.nama as namaproduk'])->all();
+
         $spreadsheet = new Spreadsheet();
         $activeWorksheet = $spreadsheet->getActiveSheet();
         // Header
-        $activeWorksheet->setCellValue('A1', 'Nama Pembeli');
-        $activeWorksheet->setCellValue('B1', 'Nama Produk');
-        $activeWorksheet->setCellValue('C1', 'Jumlah Pesanan');
-        $activeWorksheet->setCellValue('D1', 'Total Pembayaran');
-        $activeWorksheet->setCellValue('E1', 'Status Pembayaran');
-        $activeWorksheet->setCellValue('F1', 'Kurir');
+
+        $totalPenjualan = array_sum(array_column($data, 'totalselurh'));
+        $ongkir = array_sum(array_column($data, 'ongkir'));
+        $totalseluruh = $totalPenjualan - $ongkir;
+
+        $activeWorksheet->setCellValue('A1', 'No');
+        $activeWorksheet->setCellValue('B1', 'Nama Pembeli');
+        $activeWorksheet->setCellValue('C1', 'Nama Produk');
+        $activeWorksheet->setCellValue('D1', 'Jumlah Pesanan');
+        $activeWorksheet->setCellValue('E1', 'Jasa Pengirim');
+        $activeWorksheet->setCellValue('F1', 'Tanggal Pembayaran');
+        $activeWorksheet->setCellValue('G1', 'Total Pembelian');
 
 
         $row = 2;
-        foreach ($data as $produk) {
-            $activeWorksheet->setCellValue('A' . $row, $produk->username);
-            $activeWorksheet->setCellValue('B' . $row, $produk->namaproduk);
-            $activeWorksheet->setCellValue('C' . $row, $produk->jumlahpesan);
-            $activeWorksheet->setCellValue('D' . $row, $produk->totalselurh);
-            $activeWorksheet->setCellValue('E' . $row, $produk->status_pay);
-            $activeWorksheet->setCellValue('F' . $row, $produk->nama_jasa);
-
+        foreach ($data as $key => $produk) {
+            $activeWorksheet->setCellValue('A' . $row, $key += 1);
+            $activeWorksheet->setCellValue('B' . $row, $produk->username);
+            $activeWorksheet->setCellValue('C' . $row, $produk->namaproduk);
+            $activeWorksheet->setCellValue('D' . $row, $produk->amount);
+            $activeWorksheet->setCellValue('E' . $row, $produk->nama_jasa);
+            $activeWorksheet->setCellValue('F' . $row, $produk->status_pay);
+            $activeWorksheet->setCellValue('G' . $row, $produk->totalselurh - $produk->ongkir);
             $row++;
         }
+
+        $activeWorksheet->setCellValue('A' . $row, 'Total Penjualan');
+        $activeWorksheet->setCellValue('G' . $row, $totalseluruh);
 
         // Buat response
         $response = response()->stream(

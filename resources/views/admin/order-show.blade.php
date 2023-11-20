@@ -52,11 +52,18 @@
                 </div>
 
                 <div class="flex gap-3">
-                    <p>Nama Produk : </p>
+                    <p>Status Transaksi : </p>
                     @if ($produk->statusorder == 3)
                     <h1>Transaksi Selesai</h1>
                     @elseif ($produk->statusorder == 2)
-                    <h1>Belum Dinilai</h1>
+
+                    @if ($produk->konfimasiadmin == 'valid')
+                    <h1>Pembayaran Dikonfirmasi</h1>
+                    @elseif ($produk->konfimasiadmin == 'invalid')
+                    <h1>Pembayaran Ditolak</h1>
+                    @else
+                    <h1>Menunggu Konfirmasi Admin</h1>
+                    @endif
                     @else
                     <h1>Belum Dibayar</h1>
                     @endif
@@ -74,13 +81,54 @@
                     <h1>Kode Pembayaran</h1>
                     <h1>{{$produk->kode_pay}}</h1>
                 </div>
-                @if ($produk->status_pay == 'Paid')
+
+                @if ($produk->konfimasiadmin == 'valid')
                 <div class="">
                     <h1>Bukti Pembayaran : </h1>
                     <img src="{{ asset('/storage/bukti/'.$produk->bukti) }}" class="h-auto w-96 rounded-sm" alt="">
                 </div>
+                @elseif ($produk->konfimasiadmin == 'invalid')
+                <h1>Bukti Pembayaran : </h1>
+                <img src="{{ asset('/storage/bukti/'.$produk->bukti) }}" class="h-auto w-96 rounded-sm" alt="">
+                <div class="flex mt-4 gap-3">
+                    <form action="{{ route('order.update', $produk->idorder) }}" onsubmit="return confirm('Apakah Anda Yakin Pembayaran Valid?');" method="post">
+                        @csrf
+                        @method('PUT')
+                        <input type="hidden" name="konfimasi" value="valid">
+                        <input type="hidden" name="pesan" value="Pembayaran Diterima">
+                        <button class="bg-blue-500 rounded-sm text-white p-1">Konfimasi Pembayaran</button>
+                    </form>
+                    <form action="{{ route('order.update', $produk->idorder) }}" onsubmit="return confirm('Apakah Anda Yakin Pembayaran Invalid?');" method="post">
+                        @csrf
+                        @method('PUT')
+                        <input type="hidden" name="konfimasi" value="invalid">
+                        <input type="hidden" name="pesan" value="Pembayaran Ditolak">
+                        <button class="bg-rose-500 rounded-sm text-white p-1">Tolak Pembayaran</button>
+                    </form>
+                </div>
                 @else
-                <h1>Belum DIbayar</h1>
+                @if ($produk->status_pay == 'Paid')
+                <h1>Bukti Pembayaran : </h1>
+                <img src="{{ asset('/storage/bukti/'.$produk->bukti) }}" class="h-auto w-96 rounded-sm" alt="">
+                <div class="flex mt-4 gap-3">
+                    <form action="{{ route('order.update', $produk->idorder) }}" onsubmit="return confirm('Apakah Anda Yakin Pembayaran Valid?');" method="post">
+                        @csrf
+                        @method('PUT')
+                        <input type="hidden" name="konfimasi" value="valid">
+                        <input type="hidden" name="pesan" value="Pembayaran Diterima">
+                        <button class="bg-blue-500 rounded-sm text-white p-1">Konfimasi Pembayaran</button>
+                    </form>
+                    <form action="{{ route('order.update', $produk->idorder) }}" onsubmit="return confirm('Apakah Anda Yakin Pembayaran Invalid?');" method="post">
+                        @csrf
+                        @method('PUT')
+                        <input type="hidden" name="konfimasi" value="invalid">
+                        <input type="hidden" name="pesan" value="Pembayaran Ditolak">
+                        <button class="bg-rose-500 rounded-sm text-white p-1">Tolak Pembayaran</button>
+                    </form>
+                </div>
+                @else
+                <h1>Belum Bayar</h1>
+                @endif
                 @endif
 
             </div>

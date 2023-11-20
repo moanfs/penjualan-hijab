@@ -23,8 +23,17 @@
                         </div>
                     </li>
                 </ol>
-                <div class="bg-blue-600 text-white p-1 rounded-lg hover:bg-blue-800">
-                    <a href="{{route('download-penjualan')}}">Download Data</a>
+                <div class="p-1 rounded-lg ">
+                    <form action="{{route('download-penjualan')}}" method="get">
+                        @csrf
+                        <label for="start_date">Dari Tanggal:</label>
+                        <input type="date" min="" max="<?php echo date("Y-m-d"); ?>" id="start_date" name="start_date" class="" required>
+
+                        <label for="end_date">Sampai Tanggal:</label>
+                        <input type="date" id="end_date" max="<?php echo date("Y-m-d"); ?>" name="end_date" required>
+
+                        <button type="submit" class="bg-blue-500 text-white rounded-md p-2">Export Data</button>
+                    </form>
                 </div>
             </nav>
 
@@ -49,6 +58,9 @@
                             <th scope="col" class="px-6 py-3">
                                 Total Pembayaran
                             </th>
+                            <th scope="col" class="px-6 py-3">
+                                Tanggal Pemesanan
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -61,10 +73,13 @@
                                 {{$sale->name}}
                             </th>
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{$sale->dibeli}}
+                                {{$sale->amount}}
                             </th>
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{$sale->totalseluruh}}
+                                {{$sale->totalselurh - $sale->ongkir}}
+                            </th>
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{$sale->updated_at->format('d, M Y')}}
                             </th>
                         </tr>
                         @empty
