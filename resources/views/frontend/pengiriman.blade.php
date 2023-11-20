@@ -41,7 +41,7 @@
                 <form action="{{route('pengiriman.update', $pengiriman->id)}}" method="post">
                     @csrf
                     @method('PUT')
-                    <button type="submit" class="bg-blue-500 p-2 text-white rounded-md mt-3">Konfrimasi</button>
+                    <button type="submit" class="bg-blue-500 p-2 text-white rounded-md mt-3">Barang Diterima</button>
                 </form>
                 @endif
 
