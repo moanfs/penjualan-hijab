@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="bg-white w-1/3 h-32 mx-auto my-10">
         <div class="text-center">
-            Nomor Rekening Toko
+            Nomor Rekening
         </div>
         <div class="border rounded-sm text-center">
             <p>{{$kodepay}}</p>
